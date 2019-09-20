@@ -1,14 +1,18 @@
 #################################################
 # Dependencies and Setup
 #################################################
+import os
+
+import pandas as pd
+import numpy
 
 from flask import Flask, render_template, jsonify, request # Lori/Sergio: not sure if we need jsonify.
 from flask_sqlalchemy import SQLAlchemy
 
+import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -44,6 +48,15 @@ Soccer = Base.classes.soccer
 # Route to render index.html template
 @app.route("/")
 def home():
+
+    """Return a list of sample names."""
+
+    # Use Pandas to perform the sql query
+    stmt = db.session.query(Winter).statement
+    df = pd.read_sql_query(stmt, db.session.bind)
+
+    # Return a list of the column names (sample names)
+    return jsonify(df)
     return render_template("index.html")
 
 # End the Flack doc with standard ending
