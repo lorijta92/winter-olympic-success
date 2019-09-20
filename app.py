@@ -34,9 +34,9 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-Winter = Base.classes.winter
-Summer = Base.classes.summer
-Athlete = Base.classes.athlete
+Winter = Base.classes.winter_clean
+Summer = Base.classes.summer_clean
+Athlete = Base.classes.athlete_clean
 Regions = Base.classes.regions
 Country = Base.classes.country
 Soccer = Base.classes.soccer
@@ -52,7 +52,7 @@ def home():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    stmt = db.session.query(Winter).statement
+    stmt = db.session.query(Winter)
     df = pd.read_sql_query(stmt, db.session.bind)
 
     # Return a list of the column names (sample names)
