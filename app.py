@@ -18,7 +18,7 @@ app = Flask(__name__)
 #################################################
 
 # Configure our Flask instance to sqllite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/bellybutton.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Resources/gdp_olympic.sqlite'
 
 # Create database object using SQLAlchemy
 db = SQLAlchemy(app)
