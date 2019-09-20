@@ -9,6 +9,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
+import sqlite3
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -30,12 +31,12 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-Winter = Base.classes.winter
-Summer = Base.classes.summer
-Athlete = Base.classes.athlete
-Regions = Base.classes.regions
-Country = Base.classes.country
-Soccer = Base.classes.soccer
+# Winter = Base.classes.winter_clean
+# Summer = Base.classes.summer
+# Athlete = Base.classes.athlete
+# Regions = Base.classes.regions
+# Country = Base.classes.country
+# Soccer = Base.classes.soccer
 
 #################################################
 # Route Setup
@@ -44,8 +45,14 @@ Soccer = Base.classes.soccer
 # Route to render index.html template
 @app.route("/")
 def home():
+
+    con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
+    cursor = con.cursor()
+    cursor.execute("SELECT year FROM winter_clean")
+    print(cursor.fetchall())
+    
     return render_template("index.html")
 
 # End the Flack doc with standard ending
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=False)
