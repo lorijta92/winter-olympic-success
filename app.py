@@ -31,12 +31,12 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-# Winter = Base.classes.winter_clean
-# Summer = Base.classes.summer_clean
-# Athlete = Base.classes.athlete_clean
-# Regions = Base.classes.regions_clean
-# Country = Base.classes.country_clean
-# Soccer = Base.classes.soccer_clean
+# Winter = Base.classes.winter
+# Summer = Base.classes.summer
+# Athlete = Base.classes.athlete
+# Regions = Base.classes.regions
+# WDI = Base.classes.wdi
+# Soccer = Base.classes.soccer
 
 #################################################
 # Route Setup
@@ -48,11 +48,15 @@ def home():
 
     con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = con.cursor()
-    cursor.execute("SELECT year FROM winter_clean")
+    cursor.execute("SELECT year FROM winter")
     print(cursor.fetchall())
     
     return render_template("index.html")
 
-# End the Flack doc with standard ending
+@app.route("/gdp_medals")
+def gdp_medals():
+
+
+# End Flask
 if __name__ == "__main__":
     app.run(debug=False)
