@@ -23,7 +23,7 @@ d3.json(geoJSONLink, function(data) {
 })
 
 function getColor(d) {
-    #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
+    // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
 
     if d > 1000 {
         return '#ffd700';
@@ -40,6 +40,17 @@ function getColor(d) {
     else {
         return '#ffffff';
     }
+}
+
+function style(feature) {
+	return {
+		fillColor: getColor(),
+		weight: 2,
+		opacity: 1,
+		color: 'white',
+		dashArray: '3',
+		fillOpacity: 0.7
+	};
 }
 
 
