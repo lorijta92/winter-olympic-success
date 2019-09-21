@@ -32,11 +32,11 @@ Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
 # Winter = Base.classes.winter_clean
-# Summer = Base.classes.summer
-# Athlete = Base.classes.athlete
-# Regions = Base.classes.regions
-# Country = Base.classes.country
-# Soccer = Base.classes.soccer
+# Summer = Base.classes.summer_clean
+# Athlete = Base.classes.athlete_clean
+# Regions = Base.classes.regions_clean
+# Country = Base.classes.country_clean
+# Soccer = Base.classes.soccer_clean
 
 #################################################
 # Route Setup
