@@ -1,5 +1,5 @@
 // Render Choropleth Map
-var myGeoJSONPath = 'static/json/countries_geoJSON.json';
+var myGeoJSONPath = 'static/json/countries_geoJSON.json'; //custom.geo.json
 var myCustomStyle = {
     stroke: false,
     fill: true,
@@ -8,7 +8,7 @@ var myCustomStyle = {
 };
 
 d3.json(myGeoJSONPath,function(data){
-    var map = L.map('map').setView([39.74739, -105], 4);
+    var map = L.map('map').setView([25.0, 5.0], 2);
 
     L.geoJson(data, {
         clickable: false,
