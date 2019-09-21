@@ -46,10 +46,10 @@ Base.prepare(db.engine, reflect=True)
 @app.route("/")
 def home():
 
-    con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
-    cursor = con.cursor()
-    cursor.execute("SELECT year FROM winter_clean")
-    print(cursor.fetchall())
+    # con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
+    # cursor = con.cursor()
+    # cursor.execute("SELECT year FROM winter_clean")
+    # print(cursor.fetchall())
     
     return render_template("index.html")
 
