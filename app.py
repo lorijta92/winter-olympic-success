@@ -1,5 +1,5 @@
 #################################################
-# Dependencies and Setup
+# Dependencies
 #################################################
 import os
 
@@ -82,8 +82,9 @@ def line_graph():
     print(winter_years)
 
     # ---------------------------------
+    # Run query to get y-axis percentages for GDP
     
-    cursor.close()
+
     return render_template("index.html")
 
 #################################################
