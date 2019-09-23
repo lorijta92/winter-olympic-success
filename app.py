@@ -4,7 +4,7 @@
 import os
 
 import pandas as pd
-import numpy
+import numpy as np
 
 from flask import Flask, render_template, jsonify, request # Lori/Sergio: not sure if we need jsonify.
 from flask_sqlalchemy import SQLAlchemy
@@ -69,48 +69,44 @@ def line_graph():
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = conn.cursor()
 
-    # ---------------------------------
-    # X-AXIS VALUES
-    # ---------------------------------
-
-    # Run query to get x-axis values
-    winter_years_query = "SELECT DISTINCT year FROM winter"
-    cursor.execute(winter_years_query)
-    winter_years = cursor.fetchall()
-
-    # Reformat list of winter_years so elements are years instead of tuples
-    winter_years = [year[0] for year in winter_years]
-
-    # Print the winter years
-    print(winter_years)
-
-    # ---------------------------------
-    # Y-AXIS VALUES
-    # ---------------------------------
-
-    # Run query and build dataframe for analysis to help us calculate
-    # y-axis values for both population percentage and medal count percentage.
-    main_query = ''' 
-        SELECT wdi.year, wdi.country_name, winter.medal, wdi.pop_total
+    # Join two main tables
+    query = '''
+        SELECT wdi.year, wdi.country_name, wdi.country_code, winter.medal, wdi.pop_total
         FROM winter INNER JOIN wdi 
-        ON winter.year = wdi.year 
+        ON winter.country_code = wdi.country_code
+        WHERE winter.year = wdi.year
     '''
-    df = pd.read_sql_query(main_query, conn)
+    
+    # Place output in a dataframe
+    df = pd.read_sql_query(query, conn)
 
     # ---------------------------------
-    # Calculate population percentages
-
-    # Build a series with population totals per winter olympic year
-    pop_totals = df.groupby('year').sum()['pop_total']
-
-    # 
-
-
-
-
+    # Calculate x-values
+    years = df.year.unique().tolist()
 
     # ---------------------------------
-    # Calculate medal count percentages
+    # Calculate y-values: population percentages
+
+    # Create list where each element corresponds to the total population of countries 
+    # who medaled in that year's winter olympics, starting from 1960 up until 2014
+    pop_totals = [np.sum(df[df.year == year].pop_total.unique()) for year in years]
+
+    # Add empty column to dataframe to fill with population percentages
+    df['pop_percentage'] = ''
+
+    # Populate this column
+    for i in range(len(df)):
+        year = df.iloc[i, 0]
+        index = years.index(year)
+        df.iloc[i, 5] = np.round(100 * df.iloc[i, 4] / pop_totals[index], 2)
+
+    # Group df by year and country and reset index
+    pop_final = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
+
+    # ---------------------------------
+    # Calculate y-values: medal percentages
+    
+
 
 
     return render_template("index.html")
