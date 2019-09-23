@@ -57,9 +57,20 @@ def home():
 
     return render_template("index.html")
 
+# Route to get data for choropleth map
 @app.route("/gdp_medals")
 def gdp_medals():
     return render_template("index.html") ## Sergio/Lori: Will need to update this, it's just a placeholder action
+
+# Route to get data for line graph 
+@app.route("/line_graph")
+def line_graph():
+    con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
+    cursor = con.cursor()
+    cursor.execute("SELECT year FROM winter")
+    print(cursor.fetchall())
+
+    return render_template("index.html")
 
 #################################################
 # End Flask
