@@ -70,7 +70,10 @@ def line_graph():
     cursor = conn.cursor()
 
     # ---------------------------------
-    # Run query to get x-axis year labels
+    # X-AXIS VALUES
+    # ---------------------------------
+
+    # Run query to get x-axis values
     winter_years_query = "SELECT DISTINCT year FROM winter"
     cursor.execute(winter_years_query)
     winter_years = cursor.fetchall()
@@ -82,8 +85,33 @@ def line_graph():
     print(winter_years)
 
     # ---------------------------------
-    # Run query to get y-axis percentages for GDP
-    
+    # Y-AXIS VALUES
+    # ---------------------------------
+
+    # Run query and build dataframe for analysis to help us calculate
+    # y-axis values for both population percentage and medal count percentage.
+    main_query = ''' 
+        SELECT wdi.year, wdi.country_name, winter.medal, wdi.pop_total
+        FROM winter INNER JOIN wdi 
+        ON winter.year = wdi.year 
+    '''
+    df = pd.read_sql_query(main_query, conn)
+
+    # ---------------------------------
+    # Calculate population percentages
+
+    # Build a series with population totals per winter olympic year
+    pop_totals = df.groupby('year').sum()['pop_total']
+
+    # 
+
+
+
+
+
+    # ---------------------------------
+    # Calculate medal count percentages
+
 
     return render_template("index.html")
 
