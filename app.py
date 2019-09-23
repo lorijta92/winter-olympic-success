@@ -14,11 +14,8 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
-<<<<<<< HEAD
-=======
 import sqlite3
 
->>>>>>> a49893596b52ba3805e9248eec8fa60757f14b65
 # Create an instance of Flask
 app = Flask(__name__)
 
@@ -48,16 +45,12 @@ Regions = Base.classes.regions
 Country = Base.classes.country
 Soccer = Base.classes.soccer
 =======
-# Winter = Base.classes.winter_clean
-=======
 # Winter = Base.classes.winter
->>>>>>> 3e0c97dd02db95574b81fb001b929915ba7e7f38
 # Summer = Base.classes.summer
 # Athlete = Base.classes.athlete
 # Regions = Base.classes.regions
 # WDI = Base.classes.wdi
 # Soccer = Base.classes.soccer
->>>>>>> a49893596b52ba3805e9248eec8fa60757f14b65
 
 #################################################
 # Route Setup
@@ -66,23 +59,11 @@ Soccer = Base.classes.soccer
 # Route to render index.html template
 @app.route("/")
 def home():
-
-<<<<<<< HEAD
-    """Return a list of sample names."""
-
-    # Use Pandas to perform the sql query
-    stmt = db.session.query(Winter)
-    df = pd.read_sql_query(stmt, db.session.bind)
-
-    # Return a list of the column names (sample names)
-    return jsonify(df)
-=======
     con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = con.cursor()
     cursor.execute("SELECT year FROM winter")
     print(cursor.fetchall())
-    
->>>>>>> a49893596b52ba3805e9248eec8fa60757f14b65
+
     return render_template("index.html")
 
 @app.route("/gdp_medals")
