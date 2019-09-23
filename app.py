@@ -69,19 +69,24 @@ def line_graph():
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = conn.cursor()
 
+    # Run query to fetch all rows of join of winter olympics table with GDP table
+    query = "SELECT * FROM winter INNER JOIN wdi ON winter.year = wdi.year ORDER BY year ASC"
+    cursor.execute(query)
+    cursor.fetchall()
+
     # ---------------------------------
-    # Run query to get x-axis year labels and store these values in variable
-    winter_years_query = "SELECT year FROM winter"
+    # Run query to get x-axis year labels
+    winter_years_query = "SELECT DISTINCT year FROM winter"
     cursor.execute(winter_years_query)
     winter_years = cursor.fetchall()
 
-    # Print the winter years and close the query
+    # Print the winter years
     print(winter_years)
-    cursor.close()
+    
 
     # ---------------------------------
     
-
+    cursor.close()
     return render_template("index.html")
 
 #################################################
