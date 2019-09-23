@@ -36,15 +36,6 @@ Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
-<<<<<<< HEAD
-<<<<<<< HEAD
-Winter = Base.classes.winter_clean
-Summer = Base.classes.summer_clean
-Athlete = Base.classes.athlete_clean
-Regions = Base.classes.regions
-Country = Base.classes.country
-Soccer = Base.classes.soccer
-=======
 # Winter = Base.classes.winter
 # Summer = Base.classes.summer
 # Athlete = Base.classes.athlete
