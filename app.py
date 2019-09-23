@@ -67,7 +67,6 @@ def gdp_medals():
 def line_graph():
     # Setup connection to sqlite database
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
-    cursor = conn.cursor()
 
     # Join two main tables
     query = '''
@@ -105,11 +104,31 @@ def line_graph():
 
     # ---------------------------------
     # Calculate y-values: medal percentages
-    
 
+    # Build a dataframe which counts number of medals by year and country and reset index in the process
+    medals_final = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
 
+    # Add empty column 
+    medals_final['medal_percentage'] = ''
 
-    return render_template("index.html")
+    # Create series indexed by year with values the total number of medals given out that winter games
+    medal_series = df.groupby('year').count()['medal'] 
+
+    # Populate empty column
+    for i in range(len(medals_final)):
+        year = medals_final.iloc[i, 0]
+        medals_final.iloc[i, 3] = np.round(100 * medals_final.iloc[i, 2] / medal_series[year], 2)
+
+    # ---------------------------------
+    # Define data dict to jsonify
+
+    data = {
+        "years": years,
+        "population_percentages": pop_final, # Currently feeding in a dataframe into a dict, check if this is OK
+        "medal_percentages": medals_final
+    }
+
+    return jsonify(data)
 
 #################################################
 # End Flask
