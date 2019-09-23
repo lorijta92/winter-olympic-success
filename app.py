@@ -40,6 +40,7 @@ Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
 <<<<<<< HEAD
+<<<<<<< HEAD
 Winter = Base.classes.winter_clean
 Summer = Base.classes.summer_clean
 Athlete = Base.classes.athlete_clean
@@ -48,10 +49,13 @@ Country = Base.classes.country
 Soccer = Base.classes.soccer
 =======
 # Winter = Base.classes.winter_clean
+=======
+# Winter = Base.classes.winter
+>>>>>>> 3e0c97dd02db95574b81fb001b929915ba7e7f38
 # Summer = Base.classes.summer
 # Athlete = Base.classes.athlete
 # Regions = Base.classes.regions
-# Country = Base.classes.country
+# WDI = Base.classes.wdi
 # Soccer = Base.classes.soccer
 >>>>>>> a49893596b52ba3805e9248eec8fa60757f14b65
 
@@ -75,12 +79,16 @@ def home():
 =======
     con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = con.cursor()
-    cursor.execute("SELECT year FROM winter_clean")
+    cursor.execute("SELECT year FROM winter")
     print(cursor.fetchall())
     
 >>>>>>> a49893596b52ba3805e9248eec8fa60757f14b65
     return render_template("index.html")
 
-# End the Flack doc with standard ending
+@app.route("/gdp_medals")
+def gdp_medals():
+
+
+# End Flask
 if __name__ == "__main__":
     app.run(debug=False)

@@ -1,0 +1,300 @@
+noc_1,noc_2,noc_3,noc_4,country_code,country_name
+,,,,ARB,Arab World
+,,,,CSS,Caribbean small states
+,,,,CEB,Central Europe and the Baltics
+,,,,EAR,Early-demographic dividend
+,,,,EAS,East Asia & Pacific
+,,,,EAP,East Asia & Pacific (excluding high income)
+,,,,TEA,East Asia & Pacific (IDA & IBRD countries)
+,,,,EMU,Euro area
+,,,,ECS,Europe & Central Asia
+,,,,ECA,Europe & Central Asia (excluding high income)
+,,,,TEC,Europe & Central Asia (IDA & IBRD countries)
+,,,,EUU,European Union
+,,,,FCS,Fragile and conflict affected situations
+,,,,HPC,Heavily indebted poor countries (HIPC)
+,,,,HIC,High income
+,,,,IBD,IBRD only
+,,,,IBT,IDA & IBRD total
+,,,,IDB,IDA blend
+,,,,IDX,IDA only
+,,,,IDA,IDA total
+,,,,LTE,Late-demographic dividend
+,,,,LCN,Latin America & Caribbean
+,,,,LAC,Latin America & Caribbean (excluding high income)
+,,,,TLA,Latin America & the Caribbean (IDA & IBRD countries)
+,,,,LDC,Least developed countries: UN classification
+,,,,LMY,Low & middle income
+,,,,LIC,Low income
+,,,,LMC,Lower middle income
+,,,,MEA,Middle East & North Africa
+,,,,MNA,Middle East & North Africa (excluding high income)
+,,,,TMN,Middle East & North Africa (IDA & IBRD countries)
+,,,,MIC,Middle income
+,,,,NAC,North America
+,,,,INX,Not classified
+,,,,OED,OECD members
+,,,,OSS,Other small states
+,,,,PSS,Pacific island small states
+,,,,PST,Post-demographic dividend
+,,,,PRE,Pre-demographic dividend
+,,,,SST,Small states
+,,,,SAS,South Asia
+,,,,TSA,South Asia (IDA & IBRD)
+,,,,SSF,Sub-Saharan Africa
+,,,,SSA,Sub-Saharan Africa (excluding high income)
+,,,,TSS,Sub-Saharan Africa (IDA & IBRD countries)
+,,,,UMC,Upper middle income
+,,,,WLD,World
+AFG,,,,AFG,Afghanistan
+ALB,,,,ALB,Albania
+ALG,,,,DZA,Algeria
+ASA,,,,ASM,American Samoa
+AND,,,,AND,Andorra
+ANG,,,,AGO,Angola
+,,,,ATG,Antigua and Barbuda
+ARG,,,,ARG,Argentina
+ARM,,,,ARM,Armenia
+ARU,,,,ABW,Aruba
+ANZ,AUS,,,AUS,Australia
+AUT,,,,AUT,Austria
+AZE,,,,AZE,Azerbaijan
+,,,,BHS,"Bahamas, The"
+BRN,,,,BHR,Bahrain
+BAN,,,,BGD,Bangladesh
+BAR,,,,BRB,Barbados
+BLR,,,,BLR,Belarus
+BEL,,,,BEL,Belgium
+BIZ,,,,BLZ,Belize
+BEN,,,,BEN,Benin
+BER,,,,BMU,Bermuda
+BHU,,,,BTN,Bhutan
+,,,,BOL,Bolivia
+BIH,,,,BIH,Bosnia and Herzegovina
+BOT,,,,BWA,Botswana
+BRA,,,,BRA,Brazil
+,,,,VGB,British Virgin Islands
+,,,,BRN,Brunei Darussalam
+BUL,,,,BGR,Bulgaria
+BUR,,,,BFA,Burkina Faso
+BDI,,,,BDI,Burundi
+,,,,CPV,Cabo Verde
+CAM,,,,KHM,Cambodia
+CMR,,,,CMR,Cameroon
+CAN,NFL,,,CAN,Canada
+CAY,,,,CYM,Cayman Islands
+CAF,,,,CAF,Central African Republic
+CHA,,,,TCD,Chad
+,,,,CHI,Channel Islands
+CHI,,,,CHL,Chile
+CHN,HKG,,,CHN,China
+COL,,,,COL,Colombia
+COM,,,,COM,Comoros
+,,,,COD,"Congo, Dem. Rep."
+,,,,COG,"Congo, Rep."
+CRC,,,,CRI,Costa Rica
+,,,,CIV,Cote d'Ivoire
+CRO,,,,HRV,Croatia
+CUB,,,,CUB,Cuba
+AHO,,,,CUW,Curacao
+CYP,,,,CYP,Cyprus
+BOH,CZE,TCH,,CZE,Czech Republic
+DEN,,,,DNK,Denmark
+DJI,,,,DJI,Djibouti
+DMA,,,,DMA,Dominica
+DOM,,,,DOM,Dominican Republic
+ECU,,,,ECU,Ecuador
+,,,,EGY,"Egypt, Arab Rep."
+ESA,,,,SLV,El Salvador
+GEQ,,,,GNQ,Equatorial Guinea
+ERI,,,,ERI,Eritrea
+EST,,,,EST,Estonia
+,,,,SWZ,Eswatini
+ETH,,,,ETH,Ethiopia
+,,,,FRO,Faroe Islands
+FIJ,,,,FJI,Fiji
+FIN,,,,FIN,Finland
+FRA,,,,FRA,France
+,,,,PYF,French Polynesia
+GAB,,,,GAB,Gabon
+,,,,GMB,"Gambia, The"
+GEO,,,,GEO,Georgia
+FRG,GDR,GER,SAA,DEU,Germany
+GHA,,,,GHA,Ghana
+,,,,GIB,Gibraltar
+CRT,GRE,,,GRC,Greece
+,,,,GRL,Greenland
+GRN,,,,GRD,Grenada
+GUM,,,,GUM,Guam
+GUA,,,,GTM,Guatemala
+GUI,,,,GIN,Guinea
+GBS,,,,GNB,Guinea-Bissau
+GUY,,,,GUY,Guyana
+HAI,,,,HTI,Haiti
+HON,,,,HND,Honduras
+,,,,HKG,"Hong Kong SAR, China"
+HUN,,,,HUN,Hungary
+ISL,,,,ISL,Iceland
+IND,,,,IND,India
+INA,,,,IDN,Indonesia
+,,,,IRN,"Iran, Islamic Rep."
+IRQ,,,,IRQ,Iraq
+IRL,,,,IRL,Ireland
+,,,,IMN,Isle of Man
+ISR,,,,ISR,Israel
+ITA,,,,ITA,Italy
+JAM,,,,JAM,Jamaica
+JPN,,,,JPN,Japan
+JOR,,,,JOR,Jordan
+KAZ,,,,KAZ,Kazakhstan
+KEN,,,,KEN,Kenya
+KIR,,,,KIR,Kiribati
+,,,,PRK,"Korea, Dem. People’s Rep."
+,,,,KOR,"Korea, Rep."
+KOS,,,,XKX,Kosovo
+KUW,,,,KWT,Kuwait
+,,,,KGZ,Kyrgyz Republic
+,,,,LAO,Lao PDR
+LAT,,,,LVA,Latvia
+LIB,,,,LBN,Lebanon
+LES,,,,LSO,Lesotho
+LBR,,,,LBR,Liberia
+LBA,,,,LBY,Libya
+LIE,,,,LIE,Liechtenstein
+LTU,,,,LTU,Lithuania
+LUX,,,,LUX,Luxembourg
+,,,,MAC,"Macao SAR, China"
+MAD,,,,MDG,Madagascar
+MAW,,,,MWI,Malawi
+MAL,MAS,NBO,,MYS,Malaysia
+MDV,,,,MDV,Maldives
+MLI,,,,MLI,Mali
+MLT,,,,MLT,Malta
+MHL,,,,MHL,Marshall Islands
+MTN,,,,MRT,Mauritania
+MRI,,,,MUS,Mauritius
+MEX,,,,MEX,Mexico
+,,,,FSM,"Micronesia, Fed. Sts."
+MDA,,,,MDA,Moldova
+MON,,,,MCO,Monaco
+MGL,,,,MNG,Mongolia
+MNE,,,,MNE,Montenegro
+MAR,,,,MAR,Morocco
+MOZ,,,,MOZ,Mozambique
+MYA,,,,MMR,Myanmar
+NAM,,,,NAM,Namibia
+NRU,,,,NRU,Nauru
+NEP,,,,NPL,Nepal
+NED,,,,NLD,Netherlands
+,,,,NCL,New Caledonia
+NZL,,,,NZL,New Zealand
+NCA,,,,NIC,Nicaragua
+NIG,,,,NER,Niger
+NGR,,,,NGA,Nigeria
+,,,,MKD,North Macedonia
+,,,,MNP,Northern Mariana Islands
+NOR,,,,NOR,Norway
+OMA,,,,OMN,Oman
+PAK,,,,PAK,Pakistan
+PLW,,,,PLW,Palau
+PAN,,,,PAN,Panama
+PNG,,,,PNG,Papua New Guinea
+PAR,,,,PRY,Paraguay
+PER,,,,PER,Peru
+PHI,,,,PHL,Philippines
+POL,,,,POL,Poland
+POR,,,,PRT,Portugal
+PUR,,,,PRI,Puerto Rico
+QAT,,,,QAT,Qatar
+ROU,,,,ROU,Romania
+,,,,RUS,Russian Federation
+RWA,,,,RWA,Rwanda
+SAM,,,,WSM,Samoa
+SMR,,,,SMR,San Marino
+STP,,,,STP,Sao Tome and Principe
+KSA,,,,SAU,Saudi Arabia
+SEN,,,,SEN,Senegal
+SCG,SRB,YUG,,SRB,Serbia
+SEY,,,,SYC,Seychelles
+SLE,,,,SLE,Sierra Leone
+SIN,,,,SGP,Singapore
+,,,,SXM,Sint Maarten (Dutch part)
+,,,,SVK,Slovak Republic
+SLO,,,,SVN,Slovenia
+SOL,,,,SLB,Solomon Islands
+SOM,,,,SOM,Somalia
+RSA,,,,ZAF,South Africa
+SSD,,,,SSD,South Sudan
+ESP,,,,ESP,Spain
+SRI,,,,LKA,Sri Lanka
+,,,,KNA,St. Kitts and Nevis
+,,,,LCA,St. Lucia
+,,,,MAF,St. Martin (French part)
+,,,,VCT,St. Vincent and the Grenadines
+SUD,,,,SDN,Sudan
+SUR,,,,SUR,Suriname
+SWE,,,,SWE,Sweden
+SUI,,,,CHE,Switzerland
+,,,,SYR,Syrian Arab Republic
+TJK,,,,TJK,Tajikistan
+TAN,,,,TZA,Tanzania
+THA,,,,THA,Thailand
+TLS,,,,TLS,Timor-Leste
+TOG,,,,TGO,Togo
+TGA,,,,TON,Tonga
+,,,,TTO,Trinidad and Tobago
+TUN,,,,TUN,Tunisia
+TUR,,,,TUR,Turkey
+TKM,,,,TKM,Turkmenistan
+,,,,TCA,Turks and Caicos Islands
+,,,,TUV,Tuvalu
+UGA,,,,UGA,Uganda
+UKR,,,,UKR,Ukraine
+UAE,,,,ARE,United Arab Emirates
+,,,,GBR,United Kingdom
+,,,,USA,United States
+URU,,,,URY,Uruguay
+UZB,,,,UZB,Uzbekistan
+VAN,,,,VUT,Vanuatu
+,,,,VEN,"Venezuela, RB"
+VIE,VNM,,,VNM,Vietnam
+,,,,VIR,Virgin Islands (U.S.)
+,,,,PSE,West Bank and Gaza
+,,,,YEM,"Yemen, Rep."
+ZAM,,,,ZMB,Zambia
+RHO,ZIM,,,ZWE,Zimbabwe
+ANT,,,,,Antigua
+BAH,,,,,Bahamas
+BOL,,,,,Boliva
+BRU,,,,,Brunei
+CGO,,,,,Republic of Congo
+CIV,,,,,Ivory Coast
+COD,,,,,Democratic Republic of the Congo
+COK,,,,,Cook Islands
+CPV,,,,,Cape Verde
+EGY,,,,,Egypt
+EUN,RUS,URS,,,Russia
+FSM,,,,,Micronesia
+GAM,,,,,Gambia
+GBR,,,,,UK
+IOA,,,,,Individual Olympic Athletes
+IRI,,,,,Iran
+ISV,,,,,"Virgin Islands, US"
+IVB,,,,,"Virgin Islands, British"
+KGZ,,,,,Kyrgyzstan
+KOR,,,,,South Korea
+LAO,,,,,Laos
+LCA,,,,,Saint Lucia
+MKD,,,,,Macedonia
+PLE,,,,,Palestine
+PRK,,,,,North Korea
+SKN,,,,,Saint Kitts
+SVK,,,,,Slovakia
+SWZ,,,,,Swaziland
+SYR,UAR,,,,Syria
+TPE,,,,,Taiwan
+TTO,WIF,,,,Trinidad
+USA,,,,,USA
+VEN,,,,,Venezuela
+VIN,,,,,Saint Vincent
+YAR,YEM,YMD,,,Yemen
