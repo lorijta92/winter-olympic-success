@@ -59,8 +59,10 @@ def home():
 
 @app.route("/gdp_medals")
 def gdp_medals():
+    return render_template("index.html") ## Sergio/Lori: Will need to update this, it's just a placeholder action
 
-
+#################################################
 # End Flask
+#################################################
 if __name__ == "__main__":
     app.run(debug=False)
