@@ -65,10 +65,22 @@ def gdp_medals():
 # Route to get data for line graph 
 @app.route("/line_graph")
 def line_graph():
-    con = sqlite3.connect("./Resources/gdp_olympic.sqlite")
-    cursor = con.cursor()
-    cursor.execute("SELECT year FROM winter")
-    print(cursor.fetchall())
+    # Setup connection to sqlite database
+    conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
+    cursor = conn.cursor()
+
+    # ---------------------------------
+    # Run query to get x-axis year labels and store these values in variable
+    winter_years_query = "SELECT year FROM winter"
+    cursor.execute(winter_years_query)
+    winter_years = cursor.fetchall()
+
+    # Print the winter years and close the query
+    print(winter_years)
+    cursor.close()
+
+    # ---------------------------------
+    
 
     return render_template("index.html")
 
