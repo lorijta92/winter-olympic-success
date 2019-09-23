@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////
+// Choropleth Map
+/////////////////////////////////////////////////
+
 // Render Choropleth Map
 var mapboxAccessToken = API_KEY
 var myGeoJSONPath = 'static/json/countries_geoJSON.json'; //custom.geo.json
@@ -9,7 +13,7 @@ var myCustomStyle = {
 };
 
 // Link to country GeoJSON
-var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
+var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
 
 var map = L.map('map').setView([25.0, 5.0], 2);
 
@@ -20,7 +24,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 
 d3.json(geoJSONLink, function(data) {
     L.geoJson(data).addTo(map);
-})
+});
 
 function getColor(d) {
     // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
@@ -40,7 +44,7 @@ function getColor(d) {
     else {
         return '#ffffff';
     }
-}
+};
 
 function style(feature) {
 	return {
@@ -51,7 +55,7 @@ function style(feature) {
 		dashArray: '3',
 		fillOpacity: 0.7
 	};
-}
+};
 
 
 // d3.json(myGeoJSONPath,function(data){
@@ -62,3 +66,9 @@ function style(feature) {
 //         style: myCustomStyle
 //     }).addTo(map);
 // });
+
+
+/////////////////////////////////////////////////
+// Plotly Line Graph
+/////////////////////////////////////////////////
+
