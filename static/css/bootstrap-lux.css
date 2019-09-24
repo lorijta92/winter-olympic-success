@@ -84,12 +84,12 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 0;
+  margin-top: 0.6rem;
   margin-bottom: 0.5rem;
 }
 
 p {
-  margin-top: 0;
+  margin-top: 0rem;
   margin-bottom: 1rem;
 }
 
@@ -623,8 +623,8 @@ pre code {
 .col-xl-auto {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .col {
