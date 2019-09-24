@@ -72,7 +72,68 @@ function style(feature) {
 // Plotly Line Graph
 /////////////////////////////////////////////////
 
+function lineGraph() {
 
+    // Define the url described in app.py
+    var url = "/line_graph";
+  
+    // Grab the json from that url and utilize it to build the line graph
+    d3.json(url).then(function(response) {
+
+      // Log the response
+      console.log(response);
+  
+      // Set up empty list to store data from responses so it's easier to call later
+      var data = []; 
+  
+      // Loop through key, value pairs to populate metadata list
+      for (let [key, value] of Object.entries(response)) {
+        data.push({
+          key: key,
+          value: value
+        });
+      };
+      
+      // Log the data
+      console.log(data);
+      
+    //   // Define trace for the population line graph
+    //   var pop_trace = {
+    //     x: data[0].years,
+    //     y: data[1].pop_final,
+    //     mode: 'line',
+    //     name: 'Population',
+    //     line: {
+    //        color: 'rgb(55, 128, 191)',
+    //        width: 3
+    //     }
+    //   };
+      
+    //   // Define trace for the olympic medals line graph
+    //   var medals_trace = {
+    //     x: data[0].years,
+    //     y: data[2].pop_final,
+    //     mode: 'line',
+    //     name: 'Medals',
+    //     line: {
+    //        color: 'rgb(55, 128, 191)',
+    //        width: 3
+    //     }
+    //   };
+
+    //   // Define layout for the line graph
+    //     var layout = {
+    //         title:'Medals vs. Population'
+    //     };
+      
+    //   // Define full trace for line graph
+    //   var full_trace = [pop_trace, medal_trace];
+      
+    //   Plotly.newPlot('line', full_trace, layout);
+    });
+  };
+
+//lineGraph();
 
 
 
