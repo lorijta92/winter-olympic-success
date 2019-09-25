@@ -119,8 +119,8 @@ function lineGraph() {
         mode: 'line',
         name: 'Population',
         line: {
-           color: 'rgb(55, 128, 191)',
-           width: 3
+           color: '#2EF3EA',
+           width: 2
         }
       };
       
@@ -131,8 +131,8 @@ function lineGraph() {
         mode: 'line',
         name: 'Medals',
         line: {
-           color: 'rgb(55, 128, 191)',
-           width: 3
+           color: '#23B8B1',
+           width: 2
         }
       };
 
