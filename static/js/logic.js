@@ -72,6 +72,15 @@ function style(feature) {
 // Plotly Line Graph
 /////////////////////////////////////////////////
 
+// Define a function that takes country_code, a dictionary structured
+// like our response object, and toggle parameter between population and medals
+//  as input and outputs x and y data
+// function xyData(country, dictionary, ytype) {
+    
+
+//     return [x, y]
+// };
+
 function lineGraph() {
 
     // Define the url described in app.py
@@ -83,24 +92,18 @@ function lineGraph() {
       // Log the response
       console.log(response);
   
-      // Set up empty list to store data from responses so it's easier to call later
-      var data = []; 
-  
-      // Loop through key, value pairs to populate metadata list
-      for (let [key, value] of Object.entries(response)) {
-        data.push({
-          key: key,
-          value: value
-        });
-      };
+    //   // Loop through key, value pairs to populate metadata list
+    //   for (let [key, value] of Object.entries(response)) {
+    //     data.push({
+    //       key: key,
+    //       value: value
+    //     });
+    //   };
       
-      // Log the data
-      console.log(data);
-      
-    //   // Define trace for the population line graph
+    //   // Define trace for the population line graph with AUT as the placeholder
     //   var pop_trace = {
-    //     x: data[0].years,
-    //     y: data[1].pop_final,
+    //     x: xyData('AUT', response, population)[0],
+    //     y: xyData('AUT', response, population)[1],
     //     mode: 'line',
     //     name: 'Population',
     //     line: {
@@ -111,8 +114,8 @@ function lineGraph() {
       
     //   // Define trace for the olympic medals line graph
     //   var medals_trace = {
-    //     x: data[0].years,
-    //     y: data[2].pop_final,
+    //     x: xyData('AUT', response, medals)[0],
+    //     y: xyData('AUT', response, medals)[1],
     //     mode: 'line',
     //     name: 'Medals',
     //     line: {

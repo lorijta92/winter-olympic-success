@@ -136,11 +136,10 @@ def line_graph():
     df = pd.read_sql_query(query, conn)
 
     # ---------------------------------
-    # Calculate x-values
-    years = df.year.unique().tolist()
-
-    # ---------------------------------
     # Calculate y-values: population percentages
+
+    # Create list of years relevant for our analysis
+    years = df.year.unique().tolist()
 
     # Create list where each element corresponds to the total population of countries 
     # who medaled in that year's winter olympics, starting from 1960 up until 2014
@@ -156,45 +155,65 @@ def line_graph():
         df.iloc[i, 5] = np.round(100 * df.iloc[i, 4] / pop_totals[index], 2)
 
     # Group df by year and country and reset index
-    pop_final = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
+    population = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
 
     # ---------------------------------
     # Calculate y-values: medal percentages
 
     # Build a dataframe which counts number of medals by year and country and reset index in the process
-    medals_final = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
+    medals = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
 
     # Add empty column 
-    medals_final['medal_percentage'] = ''
+    medals['medal_percentage'] = ''
 
     # Create series indexed by year with values the total number of medals given out that winter games
     medal_series = df.groupby('year').count()['medal'] 
 
     # Populate empty column
-    for i in range(len(medals_final)):
-        year = medals_final.iloc[i, 0]
-        medals_final.iloc[i, 3] = np.round(100 * medals_final.iloc[i, 2] / medal_series[year], 2)
+    for i in range(len(medals)):
+        year = medals.iloc[i, 0]
+        medals.iloc[i, 3] = np.round(100 * medals.iloc[i, 2] / medal_series[year], 2)
 
     # ---------------------------------
-    # Define data dict to jsonify
+    # Form dictionaries to better organize y-axis data
 
-    ######### ASK YIFU ABOUT HOW BEST TO JSONIFY THE DATA I'M CLEANING WITH PANDAS #############
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
-    ##########################################
+    # Join population and medals dataframes
+    y_axis_data = population.merge(medals, how='inner', on='country_code')
 
-    data = {
-        "years": years,
-        "population_percentages": pop_final, # Currently feeding in a dataframe into a dict, check if this is OK with YIFU
-        "medal_percentages": medals_final
-    }
+    # Filter so that there is only one row per country and year pairing
+    y_axis_data = y_axis_data[y_axis_data.year_x == y_axis_data.year_y]
+
+    # Drop columns
+    y_axis_data.drop(axis=1, columns=['year_y', 'medal'], inplace=True)
+
+    # Redefine first column header to just be 'year'
+    y_axis_data.rename(columns={'year_x': 'year'}, inplace=True)
+
+    # Create dictionary with key == country_code and values == dictionaries of pop_percentage and medal_percentage
+    data = {}
+
+    for i in range(len(y_axis_data)):
+        # Define row variable to describe the row we are on in current iteration
+        row = y_axis_data.iloc[i, :]
+        
+        # Define an empty list variable so we can append such an empty list when adding a new country
+        empty_list = []
+        
+        # Conditional to check if country_code not already in the dictionary (add it if it's not)
+        if row.country_code not in data.keys():
+            data.update({
+                row.country_code: empty_list
+            })
+            
+        # Get the list corresponding to the current row's country code
+        country_list = data.get(row.country_code)
+        
+        # Create a new element of that list which is a dictionary
+        country_list.append({
+            'year': row.year,
+            'pop_percentage': row.pop_percentage,
+            'medal_percentage': row.medal_percentage
+        })
 
     return jsonify(data)
 
