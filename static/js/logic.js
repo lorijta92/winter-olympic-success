@@ -119,7 +119,7 @@ function lineGraph() {
         mode: 'line',
         name: 'Population',
         line: {
-           color: '#2EF3EA',
+           color: '#237BB8',
            width: 2
         }
       };
@@ -138,7 +138,10 @@ function lineGraph() {
 
       // Define layout for the line graph
         var layout = {
-            title:'Medals vs. Population'
+            title:'Medal vs. Population Percentages',
+            yaxis: {
+              tickformat: ',.2%'
+            }
         };
       
       // Define the full trace for line graph
