@@ -124,7 +124,7 @@ def home():
 def line_graph():
     
     # Load in data frame
-    df = pd.read_csv('./Resources/line_graph.csv')
+    df = pd.read_csv('./Resources/line_graph.csv', dtype=str)
 
     # Create dictionary with key == country_code and values == dictionaries of pop_percentage and medal_percentage
     data = {}
@@ -148,9 +148,9 @@ def line_graph():
         # Create a new element of that list which is a dictionary. JSON does not recognize
         # numpy data types, so casting as python ints and floats using the item() method.
         country_list.append({
-            'year': row.year.item(),
-            'pop_percentage': row.pop_percentage.item(),
-            'medal_percentage': row.medal_percentage.item()
+            'year': int(row.year),
+            'pop_percentage': float(row.pop_percentage),
+            'medal_percentage': float(row.medal_percentage)
         })
 
     return jsonify(data)
