@@ -156,24 +156,24 @@ def line_graph():
         df.iloc[i, 5] = np.round(100 * df.iloc[i, 4] / pop_totals[index], 2)
 
     # Group df by year and country and reset index
-    pop_final = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
+    population = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
 
     # ---------------------------------
     # Calculate y-values: medal percentages
 
     # Build a dataframe which counts number of medals by year and country and reset index in the process
-    medals_final = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
+    medals = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
 
     # Add empty column 
-    medals_final['medal_percentage'] = ''
+    medals['medal_percentage'] = ''
 
     # Create series indexed by year with values the total number of medals given out that winter games
     medal_series = df.groupby('year').count()['medal'] 
 
     # Populate empty column
-    for i in range(len(medals_final)):
-        year = medals_final.iloc[i, 0]
-        medals_final.iloc[i, 3] = np.round(100 * medals_final.iloc[i, 2] / medal_series[year], 2)
+    for i in range(len(medals)):
+        year = medals.iloc[i, 0]
+        medals.iloc[i, 3] = np.round(100 * medals.iloc[i, 2] / medal_series[year], 2)
 
     # ---------------------------------
     # Define data dict to jsonify
@@ -192,8 +192,8 @@ def line_graph():
 
     data = {
         "years": years,
-        "population_percentages": pop_final, # Currently feeding in a dataframe into a dict, check if this is OK with YIFU
-        "medal_percentages": medals_final
+        "population": population, # Currently feeding in a dataframe into a dict, check if this is OK with YIFU
+        "medals": medals
     }
 
     return jsonify(data)
