@@ -1,61 +1,61 @@
-/////////////////////////////////////////////////
-// Choropleth Map
-/////////////////////////////////////////////////
+// /////////////////////////////////////////////////
+// // Choropleth Map
+// /////////////////////////////////////////////////
 
-// Render Choropleth Map
-var mapboxAccessToken = API_KEY
-var myGeoJSONPath = 'static/json/countries_geoJSON.json'; //custom.geo.json
-var myCustomStyle = {
-    stroke: false,
-    fill: true,
-    fillColor: '#fff',
-    fillOpacity: 1
-};
+// // Render Choropleth Map
+// var mapboxAccessToken = API_KEY
+// var myGeoJSONPath = 'static/json/countries_geoJSON.json'; //custom.geo.json
+// var myCustomStyle = {
+//     stroke: false,
+//     fill: true,
+//     fillColor: '#fff',
+//     fillOpacity: 1
+// };
 
-// Link to country GeoJSON
-var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
+// // Link to country GeoJSON
+// var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
 
-var map = L.map('map').setView([25.0, 5.0], 2);
+// var map = L.map('map').setView([25.0, 5.0], 2);
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
-	id: 'mapbox.light',
-	// attribution: ...
-}).addTo(map);
+// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+// 	id: 'mapbox.light',
+// 	// attribution: ...
+// }).addTo(map);
 
-d3.json(geoJSONLink, function(data) {
-    L.geoJson(data).addTo(map);
-});
+// d3.json(geoJSONLink, function(data) {
+//     L.geoJson(data).addTo(map);
+// });
 
-function getColor(d) {
-    // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
+// function getColor(d) {
+//     // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
 
-    if d > 1000 {
-        return '#ffd700';
-    } 
-    else if d > 500 {
-        return '#ffe26b';
-    }
-    else if d > 250 {
-        return '#ffeca3';
-    }
-    else if d > 100 {
-        return '#fff6d3';
-    }
-    else {
-        return '#ffffff';
-    }
-};
+//     if d > 1000 {
+//         return '#ffd700';
+//     } 
+//     else if d > 500 {
+//         return '#ffe26b';
+//     }
+//     else if d > 250 {
+//         return '#ffeca3';
+//     }
+//     else if d > 100 {
+//         return '#fff6d3';
+//     }
+//     else {
+//         return '#ffffff';
+//     }
+// };
 
-function style(feature) {
-	return {
-		fillColor: getColor(),
-		weight: 2,
-		opacity: 1,
-		color: 'white',
-		dashArray: '3',
-		fillOpacity: 0.7
-	};
-};
+// function style(feature) {
+// 	return {
+// 		fillColor: getColor(),
+// 		weight: 2,
+// 		opacity: 1,
+// 		color: 'white',
+// 		dashArray: '3',
+// 		fillOpacity: 0.7
+// 	};
+// };
 
 
 // d3.json(myGeoJSONPath,function(data){
@@ -72,15 +72,34 @@ function style(feature) {
 // Plotly Line Graph
 /////////////////////////////////////////////////
 
-// Define a function that takes country_code, a dictionary structured
-// like our response object, and toggle parameter between population and medals
-//  as input and outputs x and y data
-// function xyData(country, dictionary, ytype) {
+// Define a function that takes in a country_code, a dictionary structured
+// like our response object, and an argument dictating whether to graph population
+// or medals. Outputs x and y data for line graph plotting.
+
+function xyData(countryCode, dictionary, yDataType) {
     
+    // Define a variable for the data array for the specified country
+    var country_data = dictionary.countryCode;
 
-//     return [x, y]
-// };
+    // Define an x data array which holds the x-values (i.e., years) for the country's line graph
+    var x = country_data.map(element => element.year);
 
+    // Define conditional to set the y data array based on the yDataType argument
+    if (yDataType = 'population') {
+        var y = country_data.map(element => element.pop_percentage);
+    }
+        
+    else if (yDataType = 'medals') {
+        var y = country_data.map(element => element.medal_percentage);
+    };
+
+    // Return an array where the first element is the x-data and the second is the y-data. Each 
+    // element is an array.
+    return [x, y];
+};
+
+// Define a function that utilizes our response object from app.py AND the xyData() 
+// function defined above to plot our line graph.
 function lineGraph() {
 
     // Define the url described in app.py
@@ -92,51 +111,51 @@ function lineGraph() {
       // Log the response
       console.log(response);
   
-    //   // Loop through key, value pairs to populate metadata list
-    //   for (let [key, value] of Object.entries(response)) {
-    //     data.push({
-    //       key: key,
-    //       value: value
-    //     });
-    //   };
+      // Loop through key, value pairs to populate metadata list
+      for (let [key, value] of Object.entries(response)) {
+        data.push({
+          key: key,
+          value: value
+        });
+      };
       
-    //   // Define trace for the population line graph with AUT as the placeholder
-    //   var pop_trace = {
-    //     x: xyData('AUT', response, population)[0],
-    //     y: xyData('AUT', response, population)[1],
-    //     mode: 'line',
-    //     name: 'Population',
-    //     line: {
-    //        color: 'rgb(55, 128, 191)',
-    //        width: 3
-    //     }
-    //   };
+      // Define trace for the population line graph with AUT as the placeholder
+      var pop_trace = {
+        x: xyData('AUT', response, population)[0],
+        y: xyData('AUT', response, population)[1],
+        mode: 'line',
+        name: 'Population',
+        line: {
+           color: 'rgb(55, 128, 191)',
+           width: 3
+        }
+      };
       
-    //   // Define trace for the olympic medals line graph
-    //   var medals_trace = {
-    //     x: xyData('AUT', response, medals)[0],
-    //     y: xyData('AUT', response, medals)[1],
-    //     mode: 'line',
-    //     name: 'Medals',
-    //     line: {
-    //        color: 'rgb(55, 128, 191)',
-    //        width: 3
-    //     }
-    //   };
+      // Define trace for the olympic medals line graph
+      var medals_trace = {
+        x: xyData('AUT', response, medals)[0],
+        y: xyData('AUT', response, medals)[1],
+        mode: 'line',
+        name: 'Medals',
+        line: {
+           color: 'rgb(55, 128, 191)',
+           width: 3
+        }
+      };
 
-    //   // Define layout for the line graph
-    //     var layout = {
-    //         title:'Medals vs. Population'
-    //     };
+      // Define layout for the line graph
+        var layout = {
+            title:'Medals vs. Population'
+        };
       
-    //   // Define full trace for line graph
-    //   var full_trace = [pop_trace, medal_trace];
+      // Define full trace for line graph
+      var full_trace = [pop_trace, medal_trace];
       
-    //   Plotly.newPlot('line', full_trace, layout);
+      Plotly.newPlot('line', full_trace, layout);
     });
   };
 
-//lineGraph();
+lineGraph();
 
 
 
