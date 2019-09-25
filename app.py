@@ -64,7 +64,7 @@ def home():
 def gdp_medals():
     
     # Connect to sqlite database
-    conn = sqlite3.connect("../Resources/gdp_olympic.sqlite")
+    conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
 
     # Selected needed values from summer table and add column
     summer_df = pd.read_sql('SELECT year, country_code, medal FROM summer', conn)
@@ -116,7 +116,6 @@ def gdp_medals():
     gdp_medals = final_df.to_dict(orient='records')
 
     return jsonify(gdp_medals)
-
 
 
 # Route to get data for line graph 
