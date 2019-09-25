@@ -7,7 +7,7 @@ import csv
 import pandas as pd
 import numpy as np
 
-from flask import Flask, render_template, jsonify, request # Lori/Sergio: not sure if we need jsonify.
+from flask import Flask, render_template, jsonify, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 import sqlalchemy
@@ -153,7 +153,7 @@ def line_graph():
             'medal_percentage': float(row.medal_percentage)
         })
 
-    return jsonify(data)
+    return jsonify(data), redirect("/")
 
 #################################################
 # End Flask
