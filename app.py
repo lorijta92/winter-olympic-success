@@ -136,11 +136,10 @@ def line_graph():
     df = pd.read_sql_query(query, conn)
 
     # ---------------------------------
-    # Calculate x-values
-    years = df.year.unique().tolist()
-
-    # ---------------------------------
     # Calculate y-values: population percentages
+
+    # Create list of years relevant for our analysis
+    years = df.year.unique().tolist()
 
     # Create list where each element corresponds to the total population of countries 
     # who medaled in that year's winter olympics, starting from 1960 up until 2014
@@ -176,7 +175,7 @@ def line_graph():
         medals.iloc[i, 3] = np.round(100 * medals.iloc[i, 2] / medal_series[year], 2)
 
     # ---------------------------------
-    # Form dictionaries for y-axis data
+    # Form dictionaries to better organize y-axis data
 
     # Join population and medals dataframes
     y_axis_data = population.merge(medals, how='inner', on='country_code')
@@ -215,15 +214,6 @@ def line_graph():
             'pop_percentage': row.pop_percentage,
             'medal_percentage': row.medal_percentage
         })
-    
-    # ---------------------------------
-    # Define data dict to jsonify
-
-    data = {
-        "years": years,
-        "population": population, # Currently feeding in a dataframe into a dict, check if this is OK with YIFU
-        "medals": medals
-    }
 
     return jsonify(data)
 
