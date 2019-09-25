@@ -85,11 +85,11 @@ function xyData(countryCode, dictionary, yDataType) {
     var x = country_data.map(element => element.year);
 
     // Define conditional to set the y data array based on the yDataType argument
-    if (yDataType = 'population') {
+    if (yDataType == 'population') {
         var y = country_data.map(element => element.pop_percentage);
     }
         
-    else if (yDataType = 'medals') {
+    else if (yDataType == 'medals') {
         var y = country_data.map(element => element.medal_percentage);
     };
 
@@ -100,6 +100,7 @@ function xyData(countryCode, dictionary, yDataType) {
 
 // Define a function that utilizes our response object from app.py AND the xyData() 
 // function defined above to plot our line graph.
+
 function lineGraph() {
 
     // Define the url described in app.py
@@ -108,16 +109,8 @@ function lineGraph() {
     // Grab the json from that url and utilize it to build the line graph
     d3.json(url).then(function(response) {
 
-      // Log the response
+      // Log the response to confirm it's in the same format I expect it to be in
       console.log(response);
-  
-      // Loop through key, value pairs to populate metadata list
-      for (let [key, value] of Object.entries(response)) {
-        data.push({
-          key: key,
-          value: value
-        });
-      };
       
       // Define trace for the population line graph with AUT as the placeholder
       var pop_trace = {
