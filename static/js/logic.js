@@ -114,8 +114,8 @@ function lineGraph() {
       
       // Define trace for the population line graph with AUT as the placeholder
       var pop_trace = {
-        x: xyData('AUT', response, population)[0],
-        y: xyData('AUT', response, population)[1],
+        x: xyData('AUT', response, 'population')[0],
+        y: xyData('AUT', response, 'population')[1],
         mode: 'line',
         name: 'Population',
         line: {
@@ -126,8 +126,8 @@ function lineGraph() {
       
       // Define trace for the olympic medals line graph
       var medals_trace = {
-        x: xyData('AUT', response, medals)[0],
-        y: xyData('AUT', response, medals)[1],
+        x: xyData('AUT', response, 'medals')[0],
+        y: xyData('AUT', response, 'medals')[1],
         mode: 'line',
         name: 'Medals',
         line: {
