@@ -179,9 +179,21 @@ def line_graph():
     # ---------------------------------
     # Define data dict to jsonify
 
+    ######### ASK YIFU ABOUT HOW BEST TO JSONIFY THE DATA I'M CLEANING WITH PANDAS #############
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+    ##########################################
+
     data = {
         "years": years,
-        "population_percentages": pop_final, # Currently feeding in a dataframe into a dict, check if this is OK
+        "population_percentages": pop_final, # Currently feeding in a dataframe into a dict, check if this is OK with YIFU
         "medal_percentages": medals_final
     }
 
