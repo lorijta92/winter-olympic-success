@@ -142,7 +142,7 @@ function lineGraph() {
         };
       
       // Define the full trace for line graph
-      var full_trace = [pop_trace, medal_trace];
+      var full_trace = [pop_trace, medals_trace];
       
       // Plot the line graph
       Plotly.newPlot('line', full_trace, layout);

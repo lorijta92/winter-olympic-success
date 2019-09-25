@@ -153,7 +153,7 @@ def line_graph():
             'medal_percentage': float(row.medal_percentage)
         })
 
-    return jsonify(data), redirect("/")
+    return jsonify(data)
 
 #################################################
 # End Flask
