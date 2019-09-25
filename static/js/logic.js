@@ -107,7 +107,7 @@ function lineGraph() {
     var url = "/line_graph";
   
     // Grab the json from that url and utilize it to build the line graph
-    d3.json(url).then(function(response) {
+    d3.json(url).then( function(response) {
 
       // Log the response to confirm it's in the same format I expect it to be in
       console.log(response);
@@ -141,9 +141,10 @@ function lineGraph() {
             title:'Medals vs. Population'
         };
       
-      // Define full trace for line graph
+      // Define the full trace for line graph
       var full_trace = [pop_trace, medal_trace];
       
+      // Plot the line graph
       Plotly.newPlot('line', full_trace, layout);
     });
   };
