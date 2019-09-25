@@ -79,7 +79,7 @@
 function xyData(countryCode, dictionary, yDataType) {
     
     // Define a variable for the data array for the specified country
-    var country_data = dictionary.countryCode;
+    var country_data = dictionary[countryCode];
 
     // Define an x data array which holds the x-values (i.e., years) for the country's line graph
     var x = country_data.map(element => element.year);
@@ -114,8 +114,8 @@ function lineGraph() {
       
       // Define trace for the population line graph with AUT as the placeholder
       var pop_trace = {
-        x: xyData('AUT', response, 'population')[0],
-        y: xyData('AUT', response, 'population')[1],
+        x: xyData(countryCode='AUT', dictionary=response, yDataType='population')[0],
+        y: xyData(countryCode='AUT', dictionary=response, yDataType='population')[1],
         mode: 'line',
         name: 'Population',
         line: {
@@ -126,8 +126,8 @@ function lineGraph() {
       
       // Define trace for the olympic medals line graph
       var medals_trace = {
-        x: xyData('AUT', response, 'medals')[0],
-        y: xyData('AUT', response, 'medals')[1],
+        x: xyData(countryCode='AUT', dictionary=response, yDataType='medals')[0],
+        y: xyData(countryCode='AUT', dictionary=response, yDataType='medals')[1],
         mode: 'line',
         name: 'Medals',
         line: {
