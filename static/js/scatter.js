@@ -2,10 +2,10 @@ var svgWidth = 860;
 var svgHeight = 400;
 
 var margin = {
-  top: 20,
-  right: 40,
-  bottom: 80,
-  left: 100
+  top: 10,
+  right: 10,
+  bottom: 10,
+  left: 10
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -39,12 +39,11 @@ var chosenYAxis = "gold";
 
 // }
 
-// Function to update y-scale var upon click on axis label
+// Update y-scale upon click on axis label
 function yScale(olympicData, chosenYAxis) {
-  // create scales
   var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(olympicData, d => d[chosenYAxis]) * 0.8,
-      d3.max(olympicData, d => d[chosenYAxis]) * 1.2
+    .domain([d3.min(olympicData, d => d[chosenYAxis]),
+      d3.max(olympicData, d => d[chosenYAxis])
     ])
     .range([height, 0]);
 
@@ -52,7 +51,7 @@ function yScale(olympicData, chosenYAxis) {
 
 }
 
-// Function to update y-axis var upon click on axis label
+// Update y-axis upon click on axis label
 function renderAxes(newYScale, yAxis) {
   var leftAxis = d3.axisLeft(newYScale);
 
@@ -63,7 +62,7 @@ function renderAxes(newYScale, yAxis) {
   return yAxis;
 }
 
-// Function to update circles group with a transition to new circles
+// Update circles group with a transition to new circles
 function renderCircles(circlesGroup, newYScale, chosenYaxis) {
 
   circlesGroup.transition()
@@ -73,17 +72,17 @@ function renderCircles(circlesGroup, newYScale, chosenYaxis) {
   return circlesGroup;
 }
 
-// function used for updating circles group with new tooltip
-function updateToolTip(chosenXYAxis, circlesGroup) {
+// Update circles group with new tooltip
+function updateToolTip(chosenYAxis, circlesGroup) {
 
   if (chosenYAxis === "gold") {
-    var label = "Gold:";
+    var label = "Gold Medals:";
   }
   else if (chosenYAxis === "silver") {
-    var label = "Silver";
+    var label = "Silver Medals:";
   }
   else {
-    var label = "Bronze";
+    var label = "Bronze Medals:";
   }
 
   var toolTip = d3.tip()
@@ -109,20 +108,22 @@ function updateToolTip(chosenXYAxis, circlesGroup) {
 // Retrieve data from the CSV file and execute everything below
 var url = "/gdp_medals";
 
-d3.json(url, function(err, olympicData) {
+d3.json(url).then(function(err, olympicData) {
   if (err) throw err;
 
-  // parse data
-  // olympicData.forEach(function(data) {
-  //   data.hair_length = +data.hair_length;
-  //   data.num_hits = +data.num_hits;
-  //   data.num_albums = +data.num_albums;
-  // });
+  // Parse data
+  olympicData.forEach(function(d) {
+    d.year = +d.year;
+    d.gold = +d.gold;
+    d.silver = +d.silver;
+    d.bronze = +d.bronze;
+    d.gdp = parseFloat(d.gdp);
+  });
 
-  // xLinearScale function above csv import
+  // yLinearScale function above json import
   var yLinearScale = yScale(olympicData, chosenYAxis);
 
-  // Create y scale function
+  // Create x scale function
   var xLinearScale = d3.scaleLinear()
     .domain([d3.min(olympicData, d => d.year), d3.max(olympicData, d => d.year)])
     .range([0, width]);
@@ -152,75 +153,102 @@ d3.json(url, function(err, olympicData) {
     .attr("fill", "blue")
     .attr("opacity", ".5");
 
-  // Create group for  2 x- axis labels
+  // Create group for  3 y-axis labels
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-  var hairLengthLabel = labelsGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 20)
-    .attr("value", "hair_length") // value to grab for event listener
-    .classed("active", true)
-    .text("Hair Metal Ban Hair Length (inches)");
-
-  var albumsLabel = labelsGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 40)
-    .attr("value", "num_albums") // value to grab for event listener
-    .classed("inactive", true)
-    .text("# of Albums Released");
-
-  // append y axis
-  chartGroup.append("text")
+  var goldMedals = labelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
-    .classed("axis-text", true)
-    .text("Number of Billboard 500 Hits");
+    .attr("value", "gold") // value to grab for event listener
+    .classed("active", true)
+    .text("Gold Medals");
+
+  var silverMedals = labelsGroup.append("text")
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left)
+  .attr("x", 0 - (height / 2))
+  .attr("dy", "1em")
+  .attr("value", "silver") // value to grab for event listener
+  .classed("inactive", true)
+    .text("Silver Medals");
+
+    var bronzeMedals = labelsGroup.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("value", "bronze") // value to grab for event listener
+    .classed("inactive", true)
+    .text("Bronze Medals");
+
+  // append x axis
+  chartGroup.append("text")
+    .attr("x", 0)
+    .attr("y", 40)
+    .text("Year");
 
   // updateToolTip function above csv import
-  var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+  var circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
 
   // x axis labels event listener
   labelsGroup.selectAll("text")
     .on("click", function() {
       // get value of selection
       var value = d3.select(this).attr("value");
-      if (value !== chosenXAxis) {
+      if (value !== chosenYAxis) {
 
         // replaces chosenXAxis with value
-        chosenXAxis = value;
+        chosenYAxis = value;
 
-        // console.log(chosenXAxis)
+        console.log(chosenYAxis)
 
-        // functions here found above csv import
+        // functions here found above json import
         // updates x scale for new data
-        xLinearScale = xScale(hairData, chosenXAxis);
+        yLinearScale = yScale(olympicData, chosenYAxis);
 
         // updates x axis with transition
-        xAxis = renderAxes(xLinearScale, xAxis);
+        yAxis = renderAxes(yLinearScale, yAxis);
 
         // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
+        circlesGroup = renderCircles(circlesGroup, yLinearScale, chosenYAxis);
 
         // updates tooltips with new info
-        circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+        circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
 
         // changes classes to change bold text
-        if (chosenXAxis === "num_albums") {
-          albumsLabel
+        if (chosenYAxis === "gold") {
+          goldMedals
             .classed("active", true)
             .classed("inactive", false);
-          hairLengthLabel
+          silverMedals
+            .classed("active", false)
+            .classed("inactive", true);
+          bronzeMedals
             .classed("active", false)
             .classed("inactive", true);
         }
-        else {
-          albumsLabel
+        else if (chosenYAxis === "silver") {
+          goldMedals
             .classed("active", false)
             .classed("inactive", true);
-          hairLengthLabel
+          silverMedals
+            .classed("active", true)
+            .classed("inactive", false);
+          bronzeMedals
+            .classed("active", false)
+            .classed("inactive", true);
+        }        
+        else {
+          goldMedals
+            .classed("active", false)
+            .classed("inactive", true);
+          silverMedals
+            .classed("active", false)
+            .classed("inactive", true);
+          bronzeMedals
             .classed("active", true)
             .classed("inactive", false);
         }
