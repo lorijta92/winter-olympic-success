@@ -11,6 +11,12 @@
   object-fit: cover;
 }
 
+#navbar-narrow {
+  padding: 0.5rem 1rem;
+  position: fixed;
+  width: 100%;
+}
+
 /* The styles for the parallax */
 .hero {
   position: relative;

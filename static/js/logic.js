@@ -237,7 +237,7 @@ d3.json(url).then(function(olympicData) {
 
   // Label x-axis
   chartGroup.append("text")
-      .attr("transform", `translate(${width / 2}, ${height + 50})`)
+      .attr("transform", `translate(${width / 2}, ${height + 40})`)
       .attr("text-anchor", "middle")
       .attr("font-size", "12px")
       .attr("font-weight", "bold")
