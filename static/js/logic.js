@@ -25,9 +25,12 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 	// attribution: ...
 }).addTo(map);
 
+// Add geojson data to map
+// L.geoJson(json).addTo(map);
+
 // d3.json(json).then(function(data) {
     // console.log(data);
-    L.geoJson(json).addTo(map);
+    
 // });
 
 // d3.json(GEO_JSON).then(function(data) {
@@ -39,16 +42,16 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 function getColor(d) {
     // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
 
-    if (d > 1000) {
+    if (d > 10) {
         return '#ffd700';
     } 
-    else if (d > 500) {
+    else if (d > 5) {
         return '#ffe26b';
     }
-    else if (d > 250) {
+    else if (d > 3) {
         return '#ffeca3';
     }
-    else if (d > 100) {
+    else if (d > 1) {
         return '#fff6d3';
     }
     else {
@@ -58,7 +61,7 @@ function getColor(d) {
 
 function style(feature) {
 	return {
-		fillColor: getColor(),
+		fillColor: getColor(feature.properties.gold),
 		weight: 2,
 		opacity: 1,
 		color: 'white',
@@ -66,6 +69,8 @@ function style(feature) {
 		fillOpacity: 0.7
 	};
 };
+
+L.geoJson(json, {style: style}).addTo(map);
 
 
 // d3.json(myGeoJSONPath,function(data){
