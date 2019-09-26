@@ -4,13 +4,16 @@
 
 // Render Choropleth Map
 var mapboxAccessToken = API_KEY
-var myGeoJSONPath = 'static/json/countries_geoJSON.json'; //custom.geo.json
+var myGeoJSONPath = 'http://127.0.0.1:5000/static/json/countries.json'; //custom.geo.json
 var myCustomStyle = {
     stroke: false,
     fill: true,
     fillColor: '#fff',
     fillOpacity: 1
 };
+
+var json = GEO_JSON
+console.log(json)
 
 // Link to country GeoJSON
 var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
@@ -22,9 +25,16 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token='
 	// attribution: ...
 }).addTo(map);
 
-d3.json(geoJSONLink, function(data) {
-    L.geoJson(data).addTo(map);
-});
+// d3.json(json).then(function(data) {
+    // console.log(data);
+    L.geoJson(json).addTo(map);
+// });
+
+// d3.json(GEO_JSON).then(function(data) {
+//     console.log(data);
+//     console.log(2);
+//     L.geoJson(data).addTo(map);
+// });
 
 function getColor(d) {
     // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
