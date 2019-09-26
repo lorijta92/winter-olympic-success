@@ -39,7 +39,7 @@ info.onAdd = function (map) {
 
 info.update = function (props) {
     this._div.innerHTML = '<h5>Gold Medals per Year</h5>' +  (props ?
-        '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+        '<b>' + props.name + '</b><br />' + 'gold medals: ' + props.gold
         : '<h6>Hover over a country<h6>');
 };
 
@@ -96,102 +96,70 @@ function resetHighlight(e) {
 	geojson.resetStyle(e.target);
 }
 
-L.geoJson(json, {style: style}).addTo(map);
+// L.geoJson(json, {style: style}).addTo(map);
 
+var geojson;
 
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+    info.update();
+}
 
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
 
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
 
-// // get color depending on population density value
-// function getColor(d) {
-//     return d > 1000 ? '#800026' :
-//             d > 500  ? '#BD0026' :
-//             d > 200  ? '#E31A1C' :
-//             d > 100  ? '#FC4E2A' :
-//             d > 50   ? '#FD8D3C' :
-//             d > 20   ? '#FEB24C' :
-//             d > 10   ? '#FED976' :
-//                         '#FFEDA0';
-// }
-
-// function style(feature) {
-//     return {
-//         weight: 2,
-//         opacity: 1,
-//         color: 'white',
-//         dashArray: '3',
-//         fillOpacity: 0.7,
-//         fillColor: getColor(feature.properties.density)
-//     };
-// }
-
-// function highlightFeature(e) {
-//     var layer = e.target;
-
-//     layer.setStyle({
-//         weight: 5,
-//         color: '#666',
-//         dashArray: '',
-//         fillOpacity: 0.7
-//     });
-
-//     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-//         layer.bringToFront();
-//     }
-
-//     info.update(layer.feature.properties);
-// }
-
-// var geojson;
-
-// function resetHighlight(e) {
-//     geojson.resetStyle(e.target);
-//     info.update();
-// }
-
-// function zoomToFeature(e) {
-//     map.fitBounds(e.target.getBounds());
-// }
-
-// function onEachFeature(feature, layer) {
-//     layer.on({
-//         mouseover: highlightFeature,
-//         mouseout: resetHighlight,
-//         click: zoomToFeature
-//     });
-// }
-
-// geojson = L.geoJson(statesData, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
+geojson = L.geoJson(json, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(map);
 
 // map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
 
-// var legend = L.control({position: 'bottomright'});
+var legend = L.control({position: 'bottomleft'});
 
-// legend.onAdd = function (map) {
+legend.onAdd = function (map) {
 
-//     var div = L.DomUtil.create('div', 'info legend'),
-//         grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-//         labels = [],
-//         from, to;
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        labels = [],
+        from, to;
 
-//     for (var i = 0; i < grades.length; i++) {
-//         from = grades[i];
-//         to = grades[i + 1];
+    for (var i = 0; i < grades.length; i++) {
+        from = grades[i];
+        to = grades[i + 1];
 
-//         labels.push(
-//             '<i style="background:' + getColor(from + 1) + '"></i> ' +
-//             from + (to ? '&ndash;' + to : '+'));
-//     }
+        labels.push(
+            '<i style="background:' + getColor(from + 1) + '"></i> ' +
+            from + (to ? '&ndash;' + to : '+'));
+    }
 
-//     div.innerHTML = labels.join('<br>');
-//     return div;
-// };
+    div.innerHTML = labels.join('<br>');
+    return div;
+};
 
-// legend.addTo(map);
+legend.addTo(map);
+
+slider = L.control.slider(function(value) {
+    console.log(value);
+}, {
+    max: 6,
+    value: 5,
+    step:0.1,
+    size: '250px',
+    orientation:'horizontal',
+    position: 'bottomright',
+    id: 'slider'
+}).addTo(map);
 
 
 /////////////////////////////////////////////////
