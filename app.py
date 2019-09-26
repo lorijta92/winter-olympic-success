@@ -2,11 +2,12 @@
 # Dependencies
 #################################################
 import os
+import csv
 
 import pandas as pd
 import numpy as np
 
-from flask import Flask, render_template, jsonify, request # Lori/Sergio: not sure if we need jsonify.
+from flask import Flask, render_template, jsonify, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 import sqlalchemy
@@ -29,10 +30,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Resources/gdp_olympic.sqlite'
 # Create database object using SQLAlchemy
 db = SQLAlchemy(app)
 
-# reflect an existing database into a new model
+# Reflect an existing database into a new model
 Base = automap_base()
 
-# reflect the tables
+# Reflect the tables
 Base.prepare(db.engine, reflect=True)
 
 # Save references to each table
@@ -56,8 +57,6 @@ def home():
     print(cursor.fetchall())
 
     return render_template("index.html")
-
-
 
 # Route to get data for choropleth map
 @app.route("/gdp_medals")
@@ -121,80 +120,16 @@ def gdp_medals():
 # Route to get data for line graph 
 @app.route("/line_graph")
 def line_graph():
-    # Setup connection to sqlite database
-    conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
-
-    # Join two main tables
-    query = '''
-        SELECT wdi.year, wdi.country_name, wdi.country_code, winter.medal, wdi.pop_total
-        FROM winter INNER JOIN wdi 
-        ON winter.country_code = wdi.country_code
-        WHERE winter.year = wdi.year
-    '''
     
-    # Place output in a dataframe
-    df = pd.read_sql_query(query, conn)
-
-    # ---------------------------------
-    # Calculate y-values: population percentages
-
-    # Create list of years relevant for our analysis
-    years = df.year.unique().tolist()
-
-    # Create list where each element corresponds to the total population of countries 
-    # who medaled in that year's winter olympics, starting from 1960 up until 2014
-    pop_totals = [np.sum(df[df.year == year].pop_total.unique()) for year in years]
-
-    # Add empty column to dataframe to fill with population percentages
-    df['pop_percentage'] = ''
-
-    # Populate this column
-    for i in range(len(df)):
-        year = df.iloc[i, 0]
-        index = years.index(year)
-        df.iloc[i, 5] = np.round(100 * df.iloc[i, 4] / pop_totals[index], 2)
-
-    # Group df by year and country and reset index
-    population = pd.DataFrame(df.groupby(['year', 'country_code']).max()['pop_percentage']).reset_index()
-
-    # ---------------------------------
-    # Calculate y-values: medal percentages
-
-    # Build a dataframe which counts number of medals by year and country and reset index in the process
-    medals = pd.DataFrame(df.groupby(['year', 'country_code']).count()['medal']).reset_index()
-
-    # Add empty column 
-    medals['medal_percentage'] = ''
-
-    # Create series indexed by year with values the total number of medals given out that winter games
-    medal_series = df.groupby('year').count()['medal'] 
-
-    # Populate empty column
-    for i in range(len(medals)):
-        year = medals.iloc[i, 0]
-        medals.iloc[i, 3] = np.round(100 * medals.iloc[i, 2] / medal_series[year], 2)
-
-    # ---------------------------------
-    # Form dictionaries to better organize y-axis data
-
-    # Join population and medals dataframes
-    y_axis_data = population.merge(medals, how='inner', on='country_code')
-
-    # Filter so that there is only one row per country and year pairing
-    y_axis_data = y_axis_data[y_axis_data.year_x == y_axis_data.year_y]
-
-    # Drop columns
-    y_axis_data.drop(axis=1, columns=['year_y', 'medal'], inplace=True)
-
-    # Redefine first column header to just be 'year'
-    y_axis_data.rename(columns={'year_x': 'year'}, inplace=True)
+    # Load in data frame
+    df = pd.read_csv('./Resources/line_graph.csv', dtype=str)
 
     # Create dictionary with key == country_code and values == dictionaries of pop_percentage and medal_percentage
     data = {}
 
-    for i in range(len(y_axis_data)):
+    for i in range(len(df)):
         # Define row variable to describe the row we are on in current iteration
-        row = y_axis_data.iloc[i, :]
+        row = df.iloc[i, :]
         
         # Define an empty list variable so we can append such an empty list when adding a new country
         empty_list = []
@@ -208,11 +143,12 @@ def line_graph():
         # Get the list corresponding to the current row's country code
         country_list = data.get(row.country_code)
         
-        # Create a new element of that list which is a dictionary
+        # Create a new element of that list which is a dictionary. JSON does not recognize
+        # numpy data types, so casting as python ints and floats using the item() method.
         country_list.append({
-            'year': row.year,
-            'pop_percentage': row.pop_percentage,
-            'medal_percentage': row.medal_percentage
+            'year': int(row.year),
+            'pop_percentage': float(row.pop_percentage),
+            'medal_percentage': float(row.medal_percentage)
         })
 
     return jsonify(data)
