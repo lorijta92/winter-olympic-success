@@ -164,10 +164,10 @@ var svgWidth = 740;
 var svgHeight = 400;
 
 var margin = {
-  top: 10,
-  right: 10,
-  bottom: 10,
-  left: 10
+  top: 20,
+  right: 40,
+  bottom: 50,
+  left: 60
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -203,7 +203,7 @@ d3.json(url).then(function(olympicData) {
 
   // Set scales
   var yScale = d3.scaleLinear()
-    .domain([d3.min(olympicData, d => d.gold), d3.max(olympicData, d => d.gold)])
+    .domain([0, d3.max(olympicData, d => d.gold)])
     .range([height, 0]);
 
   var xScale = d3.scaleLinear()
@@ -230,9 +230,10 @@ d3.json(url).then(function(olympicData) {
     .append("circle")
     .attr("cy", d => yScale(d.gold))
     .attr("cx", d => xScale(d.year))
-    .attr("r", d => d.gdp / 2000)
-    .attr("fill", "blue")
-    .attr("opacity", ".5");
+    .attr("r", d => d.gdp / 4000)
+    .attr("fill", "#ffd829")
+    .attr("opacity", ".5")
+    .attr("class", "circle");
 
   // Label x-axis
   chartGroup.append("text")
