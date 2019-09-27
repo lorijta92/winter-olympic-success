@@ -4,7 +4,7 @@
   }
 
 .row {
-  margin-top: 0.5rem;
+  margin-top: 0.5em;
 }
 
 .cover {
@@ -39,8 +39,6 @@
   animation: subtitle 1.2s forwards linear;
   animation-delay: 1.2s;
   }
-
-  /* Form control? */
 
   /* D3 Styles */
   .active {
