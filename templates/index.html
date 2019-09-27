@@ -26,8 +26,10 @@
     <!-- Leaflet Slider CSS -->
     <link rel="stylesheet" type="text/css" href="../static/css/leaflet-slider.css"/>
 
-    <!-- Our CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
+
+
 
 </head>
 
@@ -100,9 +102,11 @@
 <div class="wrapper" style="margin-top: 0.5em;">
     <div class="container">
         <!-- Scatter & Line Plots -->
+        <div class="row"></div>
         <div class="row">
             <div class="col-md-10">
-                <div id="scatter" style="width: 100%; height: 400px"></div> <!--SCATTER-->
+                <!-- <div id="scatter" style="width: 100%; height: 400px"></div> SCATTER -->
+                <canvas id="bubble" class="chartjs" width="770" height="400" style="display:block; width: 770px; height: 400px"></canvas>
             </div>
             <div class="col-md-2" style="padding: 1rem; background-color: #f7f7f9"> 
                 <div>
@@ -145,6 +149,9 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+
     <script type="text/javascript" src="static/js/geojson.js"></script>
     <script type="text/javascript" src="static/js/leaflet-slider.js"></script>
     <script type="text/javascript" src="static/js/config.js"></script>
