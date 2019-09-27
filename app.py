@@ -65,43 +65,35 @@ def gdp_medals():
     # Connect to sqlite database
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
 
-    # Selected needed values from summer table and add column
-    summer_df = pd.read_sql('SELECT year, country_code, medal FROM summer', conn)
-    summer_df['game'] = 'summer'
-
-    # Selected needed values from winter table and add column
+    # Selected needed values from winter table
     winter_df = pd.read_sql('SELECT year, country_code, medal FROM winter', conn)
-    winter_df['game'] = 'winter'
-
-    # Combine summer and winter tables as 'games'
-    games = pd.concat([summer_df, winter_df], sort=False)
 
     # Selected needed values from wdi table
     wdi_df = pd.read_sql('SELECT country_name, country_code, year, gdp_per_cap FROM wdi', conn)
 
     # Merge with 'games' with 'wdi_df'
-    df = pd.merge(games, wdi_df, left_on=['country_code', 'year'], right_on=['country_code', 'year'])
+    df = pd.merge(winter_df, wdi_df, left_on=['country_code', 'year'], right_on=['country_code', 'year'])
 
     # Extract count of medals per country per year
-    df2 = df.groupby(['year', 'country_name', 'game', 'medal']).count() # Group data and count medals by type
+    df2 = df.groupby(['year', 'country_name', 'medal']).count() # Group data and count medals by type
     df2 = df2.reset_index()
-    df2 = df2.iloc[:, 0:5] # Selected needed columns and drop excess
+    df2 = df2.iloc[:, 0:4] # Selected needed columns and drop excess
     df2 = df2.rename(columns={'country_code':'medal_count'})
 
     # Pivot data frame so that each medal type is a column
-    medals_df = pd.pivot_table(df2, values='medal_count', index=['year', 'country_name', 'game'], columns='medal', fill_value=0)
+    medals_df = pd.pivot_table(df2, values='medal_count', index=['year', 'country_name'], columns='medal', fill_value=0)
     medals_df = medals_df.reset_index()
     
     # Extract each country's gdp per year
     df3 = df.groupby(['year', 'country_code']).max()
     df3 = df3.reset_index()
-    df3 = df3.drop(columns=['medal','game'])
+    df3 = df3.drop(columns=['medal'])
 
     # Combine all information: gdp and medal count
     final_df = pd.merge(medals_df, df3, left_on=['country_name', 'year'], right_on=['country_name', 'year'])
 
     # Reorder columns
-    final_df = final_df[['year','country_name','gdp_per_cap','game', 'Gold', 'Silver', 'Bronze']]
+    final_df = final_df[['year', 'country_name', 'country_code', 'gdp_per_cap', 'Gold', 'Silver', 'Bronze']]
 
     # Rename columns
     final_df = final_df.rename(columns={'country_name':'country',
@@ -150,7 +142,7 @@ def line_graph():
             'pop_percentage': float(row.pop_percentage),
             'medal_percentage': float(row.medal_percentage)
         })
-
+    print(data)
     return jsonify(data)
 
 #################################################

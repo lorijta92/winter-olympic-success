@@ -11,6 +11,10 @@
   object-fit: cover;
 }
 
+#navbar-narrow {
+  padding: 0.5rem 1rem;
+}
+
 /* The styles for the parallax */
 .hero {
   position: relative;
@@ -38,6 +42,7 @@
 
   /* Form control? */
 
+
 /* Choropleth */
 .info { 
   padding: 4px 4px; 
@@ -63,3 +68,54 @@
   margin-right: 8px; 
   opacity: 0.7; 
 }
+
+  /* D3 Styles */
+  .active {
+    font-weight: bold;
+    fill: #000;
+    transition: fill 0.3s ease-out;
+    text-anchor: middle;
+  }
+  
+  .inactive {
+    font-weight: lighter;
+    fill: #c9c9c9;
+    transition: fill 0.3s ease-out;
+    text-anchor: middle;
+  }
+  
+  .inactive:hover {
+    fill: #000;
+    cursor: pointer;
+  }
+
+  .circle {
+    stroke: #b5b5b5;
+  }
+
+  .tooltip {
+    position: absolute;
+    width: 135px;
+    height: 60px;
+    padding: 2px;
+    padding-top: 8px;
+    font: 12px sans-serif;
+    color: white;
+    text-align: center;
+    background: #f7f7f9;
+    border: 0;
+    border-radius: 10px;
+  }
+    
+  .d3-tip {
+    padding: 6px;
+    font-size: 12px;
+    line-height: 1;
+    line-height: 1.5em;
+    color: #fff;
+    text-align: center;
+    text-transform: capitalize;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+  }  
+
