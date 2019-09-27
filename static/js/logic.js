@@ -157,6 +157,18 @@ lineGraph();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////
 // SCATTER PLOT
 /////////////////////////////////////////////////
@@ -185,72 +197,97 @@ var svg = d3
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-// Retrieve data from the CSV file and execute everything below
+// Retrieve data and execute everything below
 var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
 
   console.log(olympicData);
 
+  var colnames = Object.keys(olympicData[0]);
+  console.log(colnames);
+
+
+  // Filter data
+  const completeDF = new DataFrame(olympicData, colnames)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Parse data
-  olympicData.forEach(function(d) {
-    d.year = +d.year;
-    d.gold = +d.gold;
-    d.silver = +d.silver;
-    d.bronze = +d.bronze;
-    d.gdp = parseFloat(d.gdp);
-  });
+  // olympicData.forEach(function(d) {
+  //   d.year = +d.year;
+  //   d.gold = +d.gold;
+  //   d.silver = +d.silver;
+  //   d.bronze = +d.bronze;
+  //   d.gdp = parseFloat(d.gdp);
+  // });
 
-  // Set scales
-  var yScale = d3.scaleLinear()
-    .domain([0, d3.max(olympicData, d => d.gold)])
-    .range([height, 0]);
+  // // Set scales
+  // var yScale = d3.scaleLinear()
+  //   .domain([0, d3.max(olympicData, d => d.gold)])
+  //   .range([height, 0]);
 
-  var xScale = d3.scaleLinear()
-    .domain([d3.min(olympicData, d => d.year), d3.max(olympicData, d => d.year)])
-    .range([0, width]);
+  // var xScale = d3.scaleLinear()
+  //   .domain([d3.min(olympicData, d => d.year), d3.max(olympicData, d => d.year)])
+  //   .range([0, width]);
 
-  // Create initial axis functions
-  var bottomAxis = d3.axisBottom(xScale);
-  var leftAxis = d3.axisLeft(yScale);
+  // // Create initial axis functions
+  // var bottomAxis = d3.axisBottom(xScale);
+  // var leftAxis = d3.axisLeft(yScale);
 
-  // append x axis
-  chartGroup.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+  // // append x axis
+  // chartGroup.append("g")
+  //   .attr("transform", `translate(0, ${height})`)
+  //   .call(bottomAxis);
 
-  // append y axis
-  chartGroup.append("g")
-    .call(leftAxis);
+  // // append y axis
+  // chartGroup.append("g")
+  //   .call(leftAxis);
 
-  // append initial circles
-  chartGroup.selectAll("circle")
-    .data(olympicData)
-    .enter()
-    .append("circle")
-    .attr("cy", d => yScale(d.gold))
-    .attr("cx", d => xScale(d.year))
-    .attr("r", d => d.gdp / 4000)
-    .attr("fill", "#ffd829")
-    .attr("opacity", ".5")
-    .attr("class", "circle");
+  // // append initial circles
+  // chartGroup.selectAll("circle")
+  //   .data(olympicData)
+  //   .enter()
+  //   .append("circle")
+  //   .attr("cy", d => yScale(d.gold))
+  //   .attr("cx", d => xScale(d.year))
+  //   .attr("r", d => d.gdp / 4000)
+  //   .attr("fill", "#ffd829")
+  //   .attr("opacity", ".5")
+  //   .attr("class", "circle");
 
-  // Label x-axis
-  chartGroup.append("text")
-      .attr("transform", `translate(${width / 2}, ${height + 40})`)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .attr("font-weight", "bold")
-      .text("Year");
+  // // Label x-axis
+  // chartGroup.append("text")
+  //     .attr("transform", `translate(${width / 2}, ${height + 40})`)
+  //     .attr("text-anchor", "middle")
+  //     .attr("font-size", "12px")
+  //     .attr("font-weight", "bold")
+  //     .text("Year");
   
-  // Label y-axis
-  chartGroup.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", 0 - (height/2))
-      .attr("y", 0 - margin.left)
-      .attr("dy", "1em")
-      .attr("text-anchor", "middle")
-      .attr("font-size", "12px")
-      .attr("font-weight", "bold")
-      .text("Gold Medals");
+  // // Label y-axis
+  // chartGroup.append("text")
+  //     .attr("transform", "rotate(-90)")
+  //     .attr("x", 0 - (height/2))
+  //     .attr("y", 0 - margin.left)
+  //     .attr("dy", "1em")
+  //     .attr("text-anchor", "middle")
+  //     .attr("font-size", "12px")
+  //     .attr("font-weight", "bold")
+  //     .text("Gold Medals");
 });
