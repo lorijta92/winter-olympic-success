@@ -53,24 +53,20 @@ function lineGraph(country) {
         
         // Define trace for the olympic medals line graph
         var medals_trace = {
-        x: xyData(countryCode=country, dictionary=response, yDataType='medals')[0],
-        y: xyData(countryCode=country, dictionary=response, yDataType='medals')[1],
-        mode: 'line',
-        name: 'Medals',
-        line: {
-            color: '#23B8B1',
-            width: 2
-        }
+            x: xyData(countryCode=country, dictionary=response, yDataType='medals')[0],
+            y: xyData(countryCode=country, dictionary=response, yDataType='medals')[1],
+            mode: 'line',
+            name: 'Medals',
+            line: {
+                color: '#23B8B1',
+                width: 2
+            }
         };
 
         // Define layout for the line graph
         var layout = {
             title:'Population vs. Medals',
-            xaxis: {
-                text: 'Years'
-            },
             yaxis: {
-                text: 'Percentage',
                 tickformat: ',.2%'
             }
         };
