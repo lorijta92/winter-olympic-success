@@ -150,7 +150,7 @@ def line_graph():
             'pop_percentage': float(row.pop_percentage),
             'medal_percentage': float(row.medal_percentage)
         })
-
+    print(data)
     return jsonify(data)
 
 #################################################
