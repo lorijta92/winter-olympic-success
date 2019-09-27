@@ -65,7 +65,21 @@
   .circle {
     stroke: #b5b5b5;
   }
-  
+
+  .tooltip {
+    position: absolute;
+    width: 135px;
+    height: 60px;
+    padding: 2px;
+    padding-top: 8px;
+    font: 12px sans-serif;
+    color: white;
+    text-align: center;
+    background: #f7f7f9;
+    border: 0;
+    border-radius: 10px;
+  }
+    
   .d3-tip {
     padding: 6px;
     font-size: 12px;
