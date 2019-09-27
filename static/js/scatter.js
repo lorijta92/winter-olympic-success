@@ -2,34 +2,39 @@ var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
 
+  // Create empty arrays to store data for each medal type
   var golds = [];
   var silvers = [];
   var bronzes = [];
 
+  // Iterate through data
   for (var i = 0; i < olympicData.length; i++) {
     var d = olympicData[i];
 
+    // Create a dictionary for each row of gold medal data
     var goldDict = {};
     goldDict['x'] = d.year;
     goldDict['y'] = d.gold;
     goldDict['r'] = d.gdp/4000;
-    golds.push(goldDict);
+    golds.push(goldDict); // Append 'golds' array with each dictionary
 
+    // Create a dictionary for each row of silver medal data
     var silverDict = {};
-    goldDict['x'] = d.year;
-    goldDict['y'] = d.silver;
-    goldDict['r'] = d.gdp/4000;
-    silvers.push(silverDict);
+    silverDict['x'] = d.year;
+    silverDict['y'] = d.silver;
+    silverDict['r'] = d.gdp/4000;
+    silvers.push(silverDict); // Append 'silvers' array with each dictionary
 
+    // Create a dictionary for each row of bronze medal data
     var bronzeDict = {};
-    goldDict['x'] = d.year;
-    goldDict['y'] = d.bronze;
-    goldDict['r'] = d.gdp/4000;
-    bronzes.push(bronzeDict);
+    bronzeDict['x'] = d.year;
+    bronzeDict['y'] = d.bronze;
+    bronzeDict['r'] = d.gdp/4000;
+    bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
   }
 
 
-  // Generate chart
+  // Generate chart using Chart.js
   new Chart(document.getElementById("bubble"), {
     type: 'bubble',
     data: {
@@ -45,21 +50,11 @@ d3.json(url).then(function(olympicData) {
           backgroundColor: "rgba(74,74,74,0.4)",
           borderColor: "rgba(74,74,74,1)",
           data: silvers
-          // data: [{
-          //   x: [years],
-          //   y: [silvers],
-          //   r: [gdps]
-          // }]
         }, {
           label: ["Bronze"],
           backgroundColor: "rgba(128,74,0,0.4)",
           borderColor: "rgba(128,74,0,1)",
           data: bronzes
-          // data: [{
-          //   x: [years],
-          //   y: [bronzes],
-          //   r: [gdps]
-          // }]
         }
       ]
     },
@@ -77,7 +72,7 @@ d3.json(url).then(function(olympicData) {
         xAxes: [{ 
           scaleLabel: {
             display: true,
-            labelString: "GDP (per capita)"
+            labelString: "Year"
           }
         }]
       }
