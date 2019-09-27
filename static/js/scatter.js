@@ -1,10 +1,10 @@
 // Set up SVG
-var svgWidth = 740;
+var svgWidth = 930;
 var svgHeight = 400;
 
 var margin = {
   top: 20,
-  right: 40,
+  right: 10,
   bottom: 50,
   left: 60
 };
@@ -156,26 +156,29 @@ d3.json(url).then(function(olympicData) {
   var goldMedals = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0)
-    .attr("x", 0)
-    .attr("dy", "1em")
+    .attr("x", -110)
+    .attr("dy", "1.5em")
+    .attr("font-size", "12px")
     .attr("value", "gold")
     .classed("active", true)
     .text("Gold Medals");
 
   var silverMedals = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", -20)
+    .attr("y", 0)
     .attr("x", 0)
-    .attr("dy", "1em")
+    .attr("dy", "1.5em")
+    .attr("font-size", "12px")
     .attr("value", "silver")
     .classed("inactive", true)
     .text("Silver Medals");
 
   var bronzeMedals = ylabelsGroup.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("y", -40)
-    .attr("x", 0)
-    .attr("dy", "1em")
+    .attr("y", 0)
+    .attr("x", 110)
+    .attr("dy", "1.5em")
+    .attr("font-size", "12px")
     .attr("value", "bronze")
     .classed("inactive", true)
     .text("Bronze Medals");
@@ -189,10 +192,10 @@ d3.json(url).then(function(olympicData) {
     .text("Year");
 
   // updateToolTip
-  // var circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
+  var circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
 
   // x axis labels event listener
-  labelsGroup.selectAll("text")
+  ylabelsGroup.selectAll("text")
     .on("click", function() {
       // get value of selection
       var value = d3.select(this).attr("value");

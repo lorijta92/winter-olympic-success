@@ -4,7 +4,7 @@
   }
 
 .row {
-  margin-top: 0.5rem;
+  margin-top: 0.5em;
 }
 
 .cover {
@@ -36,12 +36,7 @@
   .hero p {
   font-size: 2rem;
   opacity: 0;
-  animation: subtitle 1.2s forwards linear;
-  animation-delay: 1.2s;
   }
-
-  /* Form control? */
-
 
 /* Choropleth */
 .info { 
