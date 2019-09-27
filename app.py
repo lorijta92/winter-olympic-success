@@ -53,8 +53,8 @@ Base.prepare(db.engine, reflect=True)
 def home():
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = conn.cursor()
-    cursor.execute("SELECT year FROM winter")
-    print(cursor.fetchall())
+    # cursor.execute("SELECT year FgitROM winter")
+    # print(cursor.fetchall())
 
     return render_template("index.html")
 
@@ -142,7 +142,7 @@ def line_graph():
             'pop_percentage': float(row.pop_percentage),
             'medal_percentage': float(row.medal_percentage)
         })
-    print(data)
+        
     return jsonify(data)
 
 #################################################
