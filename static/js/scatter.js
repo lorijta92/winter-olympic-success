@@ -1,257 +1,118 @@
-var svgWidth = 860;
-var svgHeight = 400;
+// Import dataframe-js to filter data
+var DataFrame = dfjs.DataFrame;
+// import DataFrame from "dataframe-js";
 
-var margin = {
-  top: 10,
-  right: 10,
-  bottom: 10,
-  left: 10
-};
+const df = new DataFrame([
+  {c1: 1, c2: 6},
+  {c4: 1, c3: 2}
+], ['c1', 'c2', 'c3', 'c4']);
 
-var width = svgWidth - margin.left - margin.right;
-var height = svgHeight - margin.top - margin.bottom;
+// Set up SVG
+// var svgWidth = 740;
+// var svgHeight = 400;
 
-// Create SVG wrapper, append SVG group to hold chart & shift by left and top margins.
-var svg = d3
-  .select("#scatter")
-  .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+// var margin = {
+//   top: 20,
+//   right: 40,
+//   bottom: 50,
+//   left: 60
+// };
 
-// Append an SVG group
-var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+// var width = svgWidth - margin.left - margin.right;
+// var height = svgHeight - margin.top - margin.bottom;
 
-// Initial Params
-// var chosenXAxis = "year"; // CONDITIONAL SELECT ON GAME
-var chosenYAxis = "gold";
+// // Create SVG wrapper, append SVG group to hold chart & shift by left and top margins.
+// var svg = d3
+//   .select("#scatter")
+//   .append("svg")
+//   .attr("width", svgWidth)
+//   .attr("height", svgHeight);
 
-// Function to update x-scale var upon click on axis label
-// function xScale(olympicData, chosenXAxis) {
-//   // create scales
-//   var xLinearScale = d3.scaleLinear()
-//     .domain([d3.min(olympicData, d => d[chosenXAxis]) * 0.8,
-//       d3.max(olympicData, d => d[chosenXAxis]) * 1.2
-//     ])
-//     .range([0, width]);
+// // Append an SVG group
+// var chartGroup = svg.append("g")
+//   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-//   return xLinearScale;
+// // Retrieve data and execute everything below
+// var url = "/gdp_medals";
 
-// }
+// d3.json(url).then(function(olympicData) {
 
-// Update y-scale upon click on axis label
-function yScale(olympicData, chosenYAxis) {
-  var yLinearScale = d3.scaleLinear()
-    .domain([d3.min(olympicData, d => d[chosenYAxis]),
-      d3.max(olympicData, d => d[chosenYAxis])
-    ])
-    .range([height, 0]);
+//   console.log(olympicData);
 
-  return yLinearScale;
+//   // bronze, country, game, gdp, gold, silver, year
+//   var colnames = Object.keys(olympicData[0]);
+//   console.log(colnames);
 
-}
+//   // Filter data
+//   const completeDF = new DataFrame(olympicData, colnames);
 
-// Update y-axis upon click on axis label
-function renderAxes(newYScale, yAxis) {
-  var leftAxis = d3.axisLeft(newYScale);
+//   var winterDF = completeDF
+//     .filter(row => row.get("game") === "winter")
+//     .select("bronze", "country", "gdp", "gold", "silver", "year");
 
-  yAxis.transition()
-    .duration(1000)
-    .call(leftAxis);
+//   winterDF.show(3);
 
-  return yAxis;
-}
 
-// Update circles group with a transition to new circles
-function renderCircles(circlesGroup, newYScale, chosenYaxis) {
-
-  circlesGroup.transition()
-    .duration(1000)
-    .attr("cy", d => newYScale(d[chosenYAxis]));
-
-  return circlesGroup;
-}
-
-// Update circles group with new tooltip
-function updateToolTip(chosenYAxis, circlesGroup) {
-
-  if (chosenYAxis === "gold") {
-    var label = "Gold Medals:";
-  }
-  else if (chosenYAxis === "silver") {
-    var label = "Silver Medals:";
-  }
-  else {
-    var label = "Bronze Medals:";
-  }
-
-  var toolTip = d3.tip()
-    .attr("class", "tooltip")
-    .offset([80, -60])
-    .html(function(d) {
-      return (`${d.country}<br>${label} ${d[chosenYAxis]}`);
-    });
-
-  circlesGroup.call(toolTip);
-
-  circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data);
-  })
-    // onmouseout event
-    .on("mouseout", function(data, index) {
-      toolTip.hide(data);
-    });
-
-  return circlesGroup;
-}
-
-// Retrieve data from the CSV file and execute everything below
-var url = "/gdp_medals";
-
-d3.json(url).then(function(err, olympicData) {
-  if (err) throw err;
 
   // Parse data
-  olympicData.forEach(function(d) {
-    d.year = +d.year;
-    d.gold = +d.gold;
-    d.silver = +d.silver;
-    d.bronze = +d.bronze;
-    d.gdp = parseFloat(d.gdp);
-  });
+  // olympicData.forEach(function(d) {
+  //   d.year = +d.year;
+  //   d.gold = +d.gold;
+  //   d.silver = +d.silver;
+  //   d.bronze = +d.bronze;
+  //   d.gdp = parseFloat(d.gdp);
+  // });
 
-  // yLinearScale function above json import
-  var yLinearScale = yScale(olympicData, chosenYAxis);
+  // // Set scales
+  // var yScale = d3.scaleLinear()
+  //   .domain([0, d3.max(olympicData, d => d.gold)])
+  //   .range([height, 0]);
 
-  // Create x scale function
-  var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(olympicData, d => d.year), d3.max(olympicData, d => d.year)])
-    .range([0, width]);
+  // var xScale = d3.scaleLinear()
+  //   .domain([d3.min(olympicData, d => d.year), d3.max(olympicData, d => d.year)])
+  //   .range([0, width]);
 
-  // Create initial axis functions
-  var bottomAxis = d3.axisBottom(xLinearScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
+  // // Create initial axis functions
+  // var bottomAxis = d3.axisBottom(xScale);
+  // var leftAxis = d3.axisLeft(yScale);
 
-  // append x axis
-  var xAxis = chartGroup.append("g")
-    .classed("x-axis", true)
-    .attr("transform", `translate(0, ${height})`)
-    .call(bottomAxis);
+  // // append x axis
+  // chartGroup.append("g")
+  //   .attr("transform", `translate(0, ${height})`)
+  //   .call(bottomAxis);
 
-  // append y axis
-  chartGroup.append("g")
-    .call(leftAxis);
+  // // append y axis
+  // chartGroup.append("g")
+  //   .call(leftAxis);
 
-  // append initial circles
-  var circlesGroup = chartGroup.selectAll("circle")
-    .data(olympicData)
-    .enter()
-    .append("circle")
-    .attr("cy", d => yLinearScale(d[chosenYAxis]))
-    .attr("cx", d => xLinearScale(d.year))
-    .attr("r", d => d.gdp/100)
-    .attr("fill", "blue")
-    .attr("opacity", ".5");
+  // // append initial circles
+  // chartGroup.selectAll("circle")
+  //   .data(olympicData)
+  //   .enter()
+  //   .append("circle")
+  //   .attr("cy", d => yScale(d.gold))
+  //   .attr("cx", d => xScale(d.year))
+  //   .attr("r", d => d.gdp / 4000)
+  //   .attr("fill", "#ffd829")
+  //   .attr("opacity", ".5")
+  //   .attr("class", "circle");
 
-  // Create group for  3 y-axis labels
-  var labelsGroup = chartGroup.append("g")
-    .attr("transform", `translate(${width / 2}, ${height + 20})`);
-
-  var goldMedals = labelsGroup.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .attr("value", "gold") // value to grab for event listener
-    .classed("active", true)
-    .text("Gold Medals");
-
-  var silverMedals = labelsGroup.append("text")
-  .attr("transform", "rotate(-90)")
-  .attr("y", 0 - margin.left)
-  .attr("x", 0 - (height / 2))
-  .attr("dy", "1em")
-  .attr("value", "silver") // value to grab for event listener
-  .classed("inactive", true)
-    .text("Silver Medals");
-
-    var bronzeMedals = labelsGroup.append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
-    .attr("dy", "1em")
-    .attr("value", "bronze") // value to grab for event listener
-    .classed("inactive", true)
-    .text("Bronze Medals");
-
-  // append x axis
-  chartGroup.append("text")
-    .attr("x", 0)
-    .attr("y", 40)
-    .text("Year");
-
-  // updateToolTip function above csv import
-  var circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
-
-  // x axis labels event listener
-  labelsGroup.selectAll("text")
-    .on("click", function() {
-      // get value of selection
-      var value = d3.select(this).attr("value");
-      if (value !== chosenYAxis) {
-
-        // replaces chosenXAxis with value
-        chosenYAxis = value;
-
-        console.log(chosenYAxis)
-
-        // functions here found above json import
-        // updates x scale for new data
-        yLinearScale = yScale(olympicData, chosenYAxis);
-
-        // updates x axis with transition
-        yAxis = renderAxes(yLinearScale, yAxis);
-
-        // updates circles with new x values
-        circlesGroup = renderCircles(circlesGroup, yLinearScale, chosenYAxis);
-
-        // updates tooltips with new info
-        circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
-
-        // changes classes to change bold text
-        if (chosenYAxis === "gold") {
-          goldMedals
-            .classed("active", true)
-            .classed("inactive", false);
-          silverMedals
-            .classed("active", false)
-            .classed("inactive", true);
-          bronzeMedals
-            .classed("active", false)
-            .classed("inactive", true);
-        }
-        else if (chosenYAxis === "silver") {
-          goldMedals
-            .classed("active", false)
-            .classed("inactive", true);
-          silverMedals
-            .classed("active", true)
-            .classed("inactive", false);
-          bronzeMedals
-            .classed("active", false)
-            .classed("inactive", true);
-        }        
-        else {
-          goldMedals
-            .classed("active", false)
-            .classed("inactive", true);
-          silverMedals
-            .classed("active", false)
-            .classed("inactive", true);
-          bronzeMedals
-            .classed("active", true)
-            .classed("inactive", false);
-        }
-      }
-    });
-});
+  // // Label x-axis
+  // chartGroup.append("text")
+  //     .attr("transform", `translate(${width / 2}, ${height + 40})`)
+  //     .attr("text-anchor", "middle")
+  //     .attr("font-size", "12px")
+  //     .attr("font-weight", "bold")
+  //     .text("Year");
+  
+  // // Label y-axis
+  // chartGroup.append("text")
+  //     .attr("transform", "rotate(-90)")
+  //     .attr("x", 0 - (height/2))
+  //     .attr("y", 0 - margin.left)
+  //     .attr("dy", "1em")
+  //     .attr("text-anchor", "middle")
+  //     .attr("font-size", "12px")
+  //     .attr("font-weight", "bold")
+  //     .text("Gold Medals");
+// });
