@@ -65,8 +65,12 @@ function lineGraph(country) {
 
         // Define layout for the line graph
         var layout = {
-            title:'Medal vs. Population Percentages',
+            title:'Population vs. Medals',
+            xaxis: {
+                text: 'Years'
+            },
             yaxis: {
+                text: 'Percentage',
                 tickformat: ',.2%'
             }
         };

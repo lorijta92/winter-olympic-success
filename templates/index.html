@@ -110,14 +110,13 @@
             </div>
         </div> 
         <div class="row">
-            <div class="col-md-2">
-                <div class="jumbotron">
-                    <h2>LINE</h2>
-                    <p>Placeholder text</p>
-                    <hr class="my-4">
-                    <h5>Select Country:</h5>
-                    <select id="selCountrySet" onchange="optionChanged(this.value)"></select>
-                </div>                  
+            <div style="padding: 2rem; background-color: #f7f7f9" class="col-md-2">
+                <h5>Population vs. Medals</h5>
+                <p>Pick a country to see how its population compares  
+                    to total medals won from the 1960 winter games onward.</p>
+                <hr class="my-4">
+                <h5>Country:</h5>
+                <select id="selCountrySet" onchange="optionChanged(this.value)"></select>
             </div>
             <div class="col-md-10"> 
                 <div id="line" style="width: 100%; height: 400px"></div> <!--LINE-->
