@@ -33,25 +33,30 @@ d3.json(url).then(function(olympicData) {
     bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
   }
 
+  function goldCountries(golds) {
+    for (var i = 0; i < golds.length; i++) {
+      return golds[i].country
+    }
+  }
 
   // Generate chart using Chart.js
   new Chart(document.getElementById("bubble"), {
     type: 'bubble',
     data: {
-      labels: "Medals",
+      labels: ["Gold", "Silver", "Bronze"],
       datasets: [
         {
-          label: ["Gold"],
+          label: "Gold",
           backgroundColor: "rgba(255,221,50,0.4)",
           borderColor: "rgba(255,221,50,1)",
           data: golds
         }, {
-          label: ["Silver"],
+          label: "Silver",
           backgroundColor: "rgba(74,74,74,0.4)",
           borderColor: "rgba(74,74,74,1)",
           data: silvers
         }, {
-          label: ["Bronze"],
+          label: "Bronze",
           backgroundColor: "rgba(128,74,0,0.4)",
           borderColor: "rgba(128,74,0,1)",
           data: bronzes
@@ -75,6 +80,14 @@ d3.json(url).then(function(olympicData) {
             labelString: "Year"
           }
         }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var label = data.datasets[tooltipItem.datasetIndex].label;
+            return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ', GDP: ' + tooltipItem.r + ')';
+         }
+        }
       }
     }
   });
