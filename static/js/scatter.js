@@ -2,81 +2,95 @@ var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
 
-    var years = [];
-    var golds = [];
-    var silvers = [];
-    var bronzes = [];
-    var gdps = [];
+  // Create empty arrays to store data for each medal type
+  var golds = [];
+  var silvers = [];
+  var bronzes = [];
 
-    for (var i = 0; i < olympicData.length; i++) {
-        years.push(olympicData[i].year);
-        golds.push(olympicData[i].gold);
-        silvers.push(olympicData[i].silver);
-        bronzes.push(olympicData[i].bronze);
-        gdps.push(olympicData[i].gdp/100);
+  // Iterate through data
+  for (var i = 0; i < olympicData.length; i++) {
+    var d = olympicData[i];
+
+    // Create a dictionary for each row of gold medal data
+    var goldDict = {};
+    goldDict['x'] = d.year;
+    goldDict['y'] = d.gold;
+    goldDict['r'] = d.gdp/4000;
+    golds.push(goldDict); // Append 'golds' array with each dictionary
+
+    // Create a dictionary for each row of silver medal data
+    var silverDict = {};
+    silverDict['x'] = d.year;
+    silverDict['y'] = d.silver;
+    silverDict['r'] = d.gdp/4000;
+    silvers.push(silverDict); // Append 'silvers' array with each dictionary
+
+    // Create a dictionary for each row of bronze medal data
+    var bronzeDict = {};
+    bronzeDict['x'] = d.year;
+    bronzeDict['y'] = d.bronze;
+    bronzeDict['r'] = d.gdp/4000;
+    bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
+  }
+
+  function goldCountries(golds) {
+    for (var i = 0; i < golds.length; i++) {
+      return golds[i].country
     }
+  }
 
-    // Filter for unique years
-    // function onlyUnique(value, index, self) { 
-    //     return self.indexOf(value) === index;}
-
-    // var uniqueYears = years.filter(onlyUnique);
-
-    // Generate chart
-    new Chart(document.getElementById("bubble"), {
-        type: 'bubble',
-        data: {
-          labels: "Medals",
-          datasets: [
-            {
-              label: ["Gold"],
-              backgroundColor: "rgba(255,221,50,0.4)",
-              borderColor: "rgba(255,221,50,1)",
-              data: [{
-                x: years[0],
-                y: golds[0],
-                r: gdps[0]
-              }]
-            }, {
-              label: ["Silver"],
-              backgroundColor: "rgba(74,74,74,0.4)",
-              borderColor: "rgba(74,74,74,1)",
-              data: [{
-                x: years[0],
-                y: silvers[0],
-                r: gdps[0]
-              }]
-            }, {
-              label: ["Bronze"],
-              backgroundColor: "rgba(128,74,0,0.4)",
-              borderColor: "rgba(128,74,0,1)",
-              data: [{
-                x: years[0],
-                y: bronzes[0],
-                r: gdps[0]
-              }]
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Relationship Between GDP and Medals Won'
-          }, scales: {
-            yAxes: [{ 
-              scaleLabel: {
-                display: true,
-                labelString: "Count of Medals"
-              }
-            }],
-            xAxes: [{ 
-              scaleLabel: {
-                display: true,
-                labelString: "GDP (per capita)"
-              }
-            }]
-          }
+  // Generate chart using Chart.js
+  new Chart(document.getElementById("bubble"), {
+    type: 'bubble',
+    data: {
+      labels: ["Gold", "Silver", "Bronze"],
+      datasets: [
+        {
+          label: "Gold",
+          backgroundColor: "rgba(255,221,50,0.4)",
+          borderColor: "rgba(255,221,50,1)",
+          data: golds
+        }, {
+          label: "Silver",
+          backgroundColor: "rgba(74,74,74,0.4)",
+          borderColor: "rgba(74,74,74,1)",
+          data: silvers
+        }, {
+          label: "Bronze",
+          backgroundColor: "rgba(128,74,0,0.4)",
+          borderColor: "rgba(128,74,0,1)",
+          data: bronzes
         }
-    });
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Relationship Between GDP and Medals Won'
+      }, scales: {
+        yAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Count of Medals"
+          }
+        }],
+        xAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Year"
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var label = data.datasets[tooltipItem.datasetIndex].label;
+            return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ', GDP: ' + tooltipItem.r + ')';
+         }
+        }
+      }
+    }
+  });
+    
 
-});
+}); //d3.json end
