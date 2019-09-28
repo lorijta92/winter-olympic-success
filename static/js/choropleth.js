@@ -38,8 +38,9 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    this._div.innerHTML = '<h5>Gold Medals per Year</h5>' +  (props ?
-        '<b>' + props.name + '</b><br />' + 'gold medals: ' + props.gold
+    console.log(`info.update: ${props}`)
+    this._div.innerHTML = '<h5>% Gold Medals Won per Year</h5>' +  (props ?
+        '<b>' + props.name + '</b><br />' + 'Share of Gold Medals: ' + props.pct_gold + '%'
         : '<h6>Hover over a country<h6>');
 };
 
@@ -47,23 +48,15 @@ info.addTo(map);
 
 
 function getColor(d) {
-    // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
+    console.log(`pct_gold: ${d}`)
+    
+    if      (d >= 30) {return '#ebc000';}
+    else if (d >= 20) {return '#ffd700';}
+    else if (d >= 15) {return '#ffe26b';}
+    else if (d >= 10) {return '#ffeca3';}
+    else if (d >= 5)  {return '#fff6d3';}
+    else if (d >= 0)  {return '#ffffff';}
 
-    if (d >= 20) {
-        return '#ffd700';
-    } 
-    else if (d >= 15) {
-        return '#ffe26b';
-    }
-    else if (d >= 10) {
-        return '#ffeca3';
-    }
-    else if (d >= 5) {
-        return '#fff6d3';
-    }
-    else {
-        return '#ffffff';
-    }
 };
 
 function style(feature) {
@@ -90,15 +83,8 @@ function highlightFeature(e) {
 	if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 		layer.bringToFront();
 	}
+    info.update(layer.feature.properties);
 }
-
-function resetHighlight(e) {
-	geojson.resetStyle(e.target);
-}
-
-// L.geoJson(json, {style: style}).addTo(map);
-
-var geojson;
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
@@ -117,74 +103,52 @@ function onEachFeature(feature, layer) {
     });
 }
 
-// function yearFilter(feature) {
-//     if (feature.properties.year === )
-// }
+var geojson
 
-default_choro = L.geoJson(json, {
+slider = L.control.slider(function(value) {
+    console.log(value);
+
+    if (value >= 1996 & value < 2012) {value = value -2} 
+    else if (value >= 2012) {value = 2014}
+
+    if (map.hasLayer(geojson)) {
+        console.log("geojson exists")
+        map.removeLayer(geojson);
+    }
+
+    geojson = L.geoJson(json, {
         filter: function(feature, layer) {
-            return feature.properties.year == 2014;
+            return feature.properties.year == value;
         },
         style: style,
         onEachFeature: onEachFeature
     });
 
-default_choro.addTo(map);
+    geojson.addTo(map)
+    console.log(geojson)
 
+}, {
+    min: 1924,
+    max: 2014,
+    value: 1924,
+    step: 4,
+    size: '250px',
+    orientation:'horizontal',
+    position: 'bottomright',
+    id: 'slider',
+    collapsed: false,
+    increment: true
+}).addTo(map);
 
-
-// slider = L.control.slider(function(value) {
-//     console.log(value);
-//     // if (default_choro) {
-//     //     console.log("Default_choro exists")
-//     //     map.removeLayer(default_choro);
-//     // }
-//     // // map.eachLayer(function (layer) {
-//     // //     map.removeLayer(layer);
-//     // // });
-//     // // var year;
-//     // var year = L.geoJson(json, {
-//     //     filter: function(feature, layer) {
-//     //         return feature.properties.year == value;
-//     //     },
-//     //     style: style,
-//     //     onEachFeature: onEachFeature
-//     // });
-//     // // map.removeLayer(year)
-//     // year.addTo(map)
-//     // // geojson = L.geoJson(json, {
-//     // //     style: style,
-//     // //     onEachFeature: onEachFeature
-//     // // }).addTo(map);
-// }, {
-//     min: 1896,
-//     max: 2012,
-//     value: 2012,
-//     step: 4,
-//     size: '250px',
-//     orientation:'horizontal',
-//     position: 'bottomright',
-//     id: 'slider',
-//     collapsed: false,
-//     increment: true
-// }).addTo(map);
-
-// console.log(slider);
-
-// geojson = L.geoJson(json, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
-
-// map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
+console.log(slider.options.value);
+console.log(map);
 
 var legend = L.control({position: 'bottomleft'});
 
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        grades = [0, 5, 10, 15, 20, 30],
         labels = [],
         from, to;
 
@@ -202,20 +166,3 @@ legend.onAdd = function (map) {
 };
 
 legend.addTo(map);
-
-
-
-// var years = [
-//     1896, 1900, 1904, 1908, 1912, 1920, 1924, 1928, 1932, 1936, 1948,
-//     1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992,
-//     1996, 2000, 2004, 2008, 2012
-// ];
- 
-// function filterBy(year) {
-//     var filters = ['==', 'year', year];
-//     map.setFilter('earthquake-circles', filters);
-//     map.setFilter('earthquake-labels', filters);
-    
-//     // Set the label to the year
-//     document.getElementById('year').textContent = years[year];
-// }
