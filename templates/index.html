@@ -12,6 +12,8 @@
     <!-- Bootstrap CDN Versions of jQuery and Popper -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> <!-- Dropdown Menu -->
 
     <!-- Bootstrap CDN Versions of Min CSS and Min JS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -36,27 +38,29 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar-narrow">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="#">
+                <img style="padding-left: 15px" src="https://www.pngkit.com/png/full/85-857706_olympic-rings-white-white-colour-dp-for-whatsapp.png" width="80px" height="30px">
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
-            <div class="collapse navbar-collapse" id="navbarColor01">
+            <div class="collapse navbar-collapse"id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Contributors</a>
+                        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+                          <a class="dropdown-item" href="https://github.com/gfidanli">Sergio Fidanli</a>
+                          <a class="dropdown-item" href="https://github.com/dpkeyes">David Keyes</a>
+                          <a class="dropdown-item" href="https://github.com/lorijta92">Lori Ta</a>
+                        </div>
+                    </li>
+          
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                  <a class="nav-link" href="#">Method</a>
                 </li>
                 </ul>
-            </div>
+              </div>
     </nav>
 
     
@@ -77,17 +81,17 @@
 
         <!-- Choropleth Map -->
         <div class="row">
-            <div class="col-md-8"> 
+            <div class="col-md-12"> 
                 <div id="map" style="width: 100%; height: 400px"></div> <!--CHOROPLETH MAP-->
             </div>
-            <div class="col-md-4">
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <div>
                     <h2>Percentage of Gold Medals Won</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                    ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-                    dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                    deserunt mollit anim id est laborum.</p></div>
+                    <p>Hover over each country on the choropleth map to see the percentage of gold medals won by each each 
+                    country relative to the total amount of gold medals available per year of the Winter Olympic Games.
+                    </p></div>
             </div>
         </div> 
     </div> <!-- Container End -->
