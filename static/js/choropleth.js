@@ -47,12 +47,14 @@ info.addTo(map);
 
 
 function getColor(d) {
-
+    console.log(`pct_gold: ${d}`)
+    
     if      (d >= 20) {return '#ffd700';} 
     else if (d >= 15) {return '#ffe26b';}
     else if (d >= 10) {return '#ffeca3';}
     else if (d >= 5)  {return '#fff6d3';}
-    else              {return '#ffffff';}
+    else if (d >= 0)  {return '#ffffff';}
+
 };
 
 function style(feature) {
@@ -128,6 +130,11 @@ var geojson
 slider = L.control.slider(function(value) {
     console.log(value);
     // map.removeLayer(geojson)
+    if (value >= 1996 & value < 2012) {value = value -2} 
+    else if (value >= 2012) {value = 2014}
+    // else if (value == 2000) { value = 1998}
+    // else if (value == 2004) { value = 2002}
+    
     if (map.hasLayer(geojson)) {
         console.log("geojson exists")
         map.removeLayer(geojson);
@@ -136,13 +143,69 @@ slider = L.control.slider(function(value) {
     // //     map.removeLayer(layer);
     // // });
     // // var year;
+    // geojson = L.geoJson(json, {
+    //     filter: function(feature, layer) {
+    //         return feature.properties.year == value;
+    //     },
+    //     // style: style,
+    //     onEachFeature: onEachFeature
+    // });
+
     geojson = L.geoJson(json, {
+        // valueProperty: 'gold', // which property in the features to use
+	    // scale: ['black', 'gold'], // chroma.js scale - include as many as you like
+	    // steps: 5, // number of breaks or steps in range
+	    // mode: 'e', // q for quantile, e for equidistant, k for k-means
+	    // style: {
+		//     color: '#fff', // border color
+		//     weight: 2,
+		//     fillOpacity: 0.7
+	    // },
         filter: function(feature, layer) {
             return feature.properties.year == value;
         },
         style: style,
         // onEachFeature: onEachFeature
     });
+
+    // geojson = L.geoJson(json, {
+    //     // valueProperty: 'gold', // which property in the features to use
+	//     // scale: ['black', 'gold'], // chroma.js scale - include as many as you like
+	//     // steps: 5, // number of breaks or steps in range
+	//     // mode: 'e', // q for quantile, e for equidistant, k for k-means
+	//     // style: {
+	// 	//     color: '#fff', // border color
+	// 	//     weight: 2,
+	// 	//     fillOpacity: 0.7
+	//     // },
+    //     filter: function(feature, layer) {
+    //         return feature.properties.year == value;
+    //     },
+    //     style: function(feature) {
+	//         return {
+	// 	        fillColor: function(feature.properties.pct_gold) {
+    //                 console.log(`pct_gold: ${feature.properties.pct_gold}`)
+    
+    //                 if      (feature.properties.pct_gold >= 20) {return '#ffd700';} 
+    //                 else if (feature.properties.pct_gold >= 15) {return '#ffe26b';}
+    //                 else if (feature.properties.pct_gold >= 10) {return '#ffeca3';}
+    //                 else if (feature.properties.pct_gold >= 5)  {return '#fff6d3';}
+    //                 else              {return '#ffffff';}
+
+    //             };,
+	// 	        weight: 2,
+	// 	        opacity: 1,
+    //             color: 'white',
+    //             dashArray: '3',
+    //             fillOpacity: 0.7
+	//         };
+    //     };,
+    //     onEachFeature: onEachFeature
+    // });
+    
+    
+    
+    
     // map.removeLayer(geojson)
     // console.log(geojson)
     geojson.addTo(map)
