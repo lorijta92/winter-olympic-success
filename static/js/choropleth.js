@@ -47,23 +47,12 @@ info.addTo(map);
 
 
 function getColor(d) {
-    // #ffd700,#ffe26b,#ffeca3,#fff6d3,#ffffff
 
-    if (d >= 20) {
-        return '#ffd700';
-    } 
-    else if (d >= 15) {
-        return '#ffe26b';
-    }
-    else if (d >= 10) {
-        return '#ffeca3';
-    }
-    else if (d >= 5) {
-        return '#fff6d3';
-    }
-    else {
-        return '#ffffff';
-    }
+    if      (d >= 20) {return '#ffd700';} 
+    else if (d >= 15) {return '#ffe26b';}
+    else if (d >= 10) {return '#ffeca3';}
+    else if (d >= 5)  {return '#fff6d3';}
+    else              {return '#ffffff';}
 };
 
 function style(feature) {
@@ -92,13 +81,13 @@ function highlightFeature(e) {
 	}
 }
 
-function resetHighlight(e) {
-	geojson.resetStyle(e.target);
-}
+// function resetHighlight(e) {
+// 	geojson.resetStyle(e.target);
+// }
 
 // L.geoJson(json, {style: style}).addTo(map);
 
-var geojson;
+// var geojson;
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
@@ -121,53 +110,77 @@ function onEachFeature(feature, layer) {
 //     if (feature.properties.year === )
 // }
 
-default_choro = L.geoJson(json, {
+// geojson = L.geoJson(json, {
+//     filter: function(feature, layer) {
+//         return feature.properties.year == 2014;
+//     },
+//     style: style,
+//     onEachFeature: onEachFeature
+// }).bindPopup(function (layer) {
+//     return layer.feature.properties.pct_gold
+// }).addTo(map);
+
+// console.log(geojson);
+
+var geojson
+
+
+slider = L.control.slider(function(value) {
+    console.log(value);
+    // map.removeLayer(geojson)
+    if (map.hasLayer(geojson)) {
+        console.log("geojson exists")
+        map.removeLayer(geojson);
+    }
+    // // map.eachLayer(function (layer) {
+    // //     map.removeLayer(layer);
+    // // });
+    // // var year;
+    geojson = L.geoJson(json, {
         filter: function(feature, layer) {
-            return feature.properties.year == 2014;
+            return feature.properties.year == value;
         },
         style: style,
-        onEachFeature: onEachFeature
+        // onEachFeature: onEachFeature
     });
+    // map.removeLayer(geojson)
+    // console.log(geojson)
+    geojson.addTo(map)
+    console.log(geojson)
+    // geojson = L.geoJson(json, {
+    //     style: style,
+    //     onEachFeature: onEachFeature
+    // }).addTo(map);
+}, {
+    min: 1924,
+    max: 2014,
+    value: 1924,
+    step: 4,
+    size: '250px',
+    orientation:'horizontal',
+    position: 'bottomright',
+    id: 'slider',
+    collapsed: false,
+    increment: true
+}).addTo(map);
 
-default_choro.addTo(map);
+console.log(slider.options.value);
+console.log(map);
 
+// geojson.addTo(map)
 
-
-// slider = L.control.slider(function(value) {
-//     console.log(value);
-//     // if (default_choro) {
-//     //     console.log("Default_choro exists")
-//     //     map.removeLayer(default_choro);
-//     // }
-//     // // map.eachLayer(function (layer) {
-//     // //     map.removeLayer(layer);
-//     // // });
-//     // // var year;
-//     // var year = L.geoJson(json, {
-//     //     filter: function(feature, layer) {
-//     //         return feature.properties.year == value;
-//     //     },
-//     //     style: style,
-//     //     onEachFeature: onEachFeature
-//     // });
-//     // // map.removeLayer(year)
-//     // year.addTo(map)
-//     // // geojson = L.geoJson(json, {
-//     // //     style: style,
-//     // //     onEachFeature: onEachFeature
-//     // // }).addTo(map);
-// }, {
-//     min: 1896,
-//     max: 2012,
-//     value: 2012,
-//     step: 4,
-//     size: '250px',
-//     orientation:'horizontal',
-//     position: 'bottomright',
-//     id: 'slider',
-//     collapsed: false,
-//     increment: true
+// geojson = L.geoJson(json, {
+//     filter: function(feature, layer) {
+//         return feature.properties.year == slider.options.value;
+//     },
+//     style: style,
+//     onEachFeature: onEachFeature
+// }).bindPopup(function (layer) {
+//     return layer.feature.properties.pct_gold
 // }).addTo(map);
+
+// console.log(geojson);
+// map.removeLayer(geojson)
 
 // console.log(slider);
 
@@ -184,7 +197,7 @@ var legend = L.control({position: 'bottomleft'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+        grades = [0, 5, 10, 15, 20],
         labels = [],
         from, to;
 
@@ -206,9 +219,8 @@ legend.addTo(map);
 
 
 // var years = [
-//     1896, 1900, 1904, 1908, 1912, 1920, 1924, 1928, 1932, 1936, 1948,
-//     1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992,
-//     1996, 2000, 2004, 2008, 2012
+//     1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972,
+//     1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014
 // ];
  
 // function filterBy(year) {
