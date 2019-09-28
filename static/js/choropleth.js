@@ -38,8 +38,9 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    this._div.innerHTML = '<h5>Gold Medals per Year</h5>' +  (props ?
-        '<b>' + props.name + '</b><br />' + 'gold medals: ' + props.gold
+    console.log(`info.update: ${props}`)
+    this._div.innerHTML = '<h5>% Gold Medals Won per Year</h5>' +  (props ?
+        '<b>' + props.name + '</b><br />' + 'Share of Gold Medals: ' + props.pct_gold + '%'
         : '<h6>Hover over a country<h6>');
 };
 
@@ -49,7 +50,8 @@ info.addTo(map);
 function getColor(d) {
     console.log(`pct_gold: ${d}`)
     
-    if      (d >= 20) {return '#ffd700';} 
+    if      (d >= 30) {return '#ebc000';}
+    else if (d >= 20) {return '#ffd700';}
     else if (d >= 15) {return '#ffe26b';}
     else if (d >= 10) {return '#ffeca3';}
     else if (d >= 5)  {return '#fff6d3';}
@@ -81,15 +83,8 @@ function highlightFeature(e) {
 	if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
 		layer.bringToFront();
 	}
+    info.update(layer.feature.properties);
 }
-
-// function resetHighlight(e) {
-// 	geojson.resetStyle(e.target);
-// }
-
-// L.geoJson(json, {style: style}).addTo(map);
-
-// var geojson;
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
@@ -108,112 +103,30 @@ function onEachFeature(feature, layer) {
     });
 }
 
-// function yearFilter(feature) {
-//     if (feature.properties.year === )
-// }
-
-// geojson = L.geoJson(json, {
-//     filter: function(feature, layer) {
-//         return feature.properties.year == 2014;
-//     },
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).bindPopup(function (layer) {
-//     return layer.feature.properties.pct_gold
-// }).addTo(map);
-
-// console.log(geojson);
-
 var geojson
-
 
 slider = L.control.slider(function(value) {
     console.log(value);
-    // map.removeLayer(geojson)
+
     if (value >= 1996 & value < 2012) {value = value -2} 
     else if (value >= 2012) {value = 2014}
-    // else if (value == 2000) { value = 1998}
-    // else if (value == 2004) { value = 2002}
-    
+
     if (map.hasLayer(geojson)) {
         console.log("geojson exists")
         map.removeLayer(geojson);
     }
-    // // map.eachLayer(function (layer) {
-    // //     map.removeLayer(layer);
-    // // });
-    // // var year;
-    // geojson = L.geoJson(json, {
-    //     filter: function(feature, layer) {
-    //         return feature.properties.year == value;
-    //     },
-    //     // style: style,
-    //     onEachFeature: onEachFeature
-    // });
 
     geojson = L.geoJson(json, {
-        // valueProperty: 'gold', // which property in the features to use
-	    // scale: ['black', 'gold'], // chroma.js scale - include as many as you like
-	    // steps: 5, // number of breaks or steps in range
-	    // mode: 'e', // q for quantile, e for equidistant, k for k-means
-	    // style: {
-		//     color: '#fff', // border color
-		//     weight: 2,
-		//     fillOpacity: 0.7
-	    // },
         filter: function(feature, layer) {
             return feature.properties.year == value;
         },
         style: style,
-        // onEachFeature: onEachFeature
+        onEachFeature: onEachFeature
     });
 
-    // geojson = L.geoJson(json, {
-    //     // valueProperty: 'gold', // which property in the features to use
-	//     // scale: ['black', 'gold'], // chroma.js scale - include as many as you like
-	//     // steps: 5, // number of breaks or steps in range
-	//     // mode: 'e', // q for quantile, e for equidistant, k for k-means
-	//     // style: {
-	// 	//     color: '#fff', // border color
-	// 	//     weight: 2,
-	// 	//     fillOpacity: 0.7
-	//     // },
-    //     filter: function(feature, layer) {
-    //         return feature.properties.year == value;
-    //     },
-    //     style: function(feature) {
-	//         return {
-	// 	        fillColor: function(feature.properties.pct_gold) {
-    //                 console.log(`pct_gold: ${feature.properties.pct_gold}`)
-    
-    //                 if      (feature.properties.pct_gold >= 20) {return '#ffd700';} 
-    //                 else if (feature.properties.pct_gold >= 15) {return '#ffe26b';}
-    //                 else if (feature.properties.pct_gold >= 10) {return '#ffeca3';}
-    //                 else if (feature.properties.pct_gold >= 5)  {return '#fff6d3';}
-    //                 else              {return '#ffffff';}
-
-    //             };,
-	// 	        weight: 2,
-	// 	        opacity: 1,
-    //             color: 'white',
-    //             dashArray: '3',
-    //             fillOpacity: 0.7
-	//         };
-    //     };,
-    //     onEachFeature: onEachFeature
-    // });
-    
-    
-    
-    
-    // map.removeLayer(geojson)
-    // console.log(geojson)
     geojson.addTo(map)
     console.log(geojson)
-    // geojson = L.geoJson(json, {
-    //     style: style,
-    //     onEachFeature: onEachFeature
-    // }).addTo(map);
+
 }, {
     min: 1924,
     max: 2014,
@@ -230,37 +143,12 @@ slider = L.control.slider(function(value) {
 console.log(slider.options.value);
 console.log(map);
 
-// geojson.addTo(map)
-
-// geojson = L.geoJson(json, {
-//     filter: function(feature, layer) {
-//         return feature.properties.year == slider.options.value;
-//     },
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).bindPopup(function (layer) {
-//     return layer.feature.properties.pct_gold
-// }).addTo(map);
-
-// console.log(geojson);
-// map.removeLayer(geojson)
-
-// console.log(slider);
-
-// geojson = L.geoJson(json, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
-
-// map.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
-
 var legend = L.control({position: 'bottomleft'});
 
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 5, 10, 15, 20],
+        grades = [0, 5, 10, 15, 20, 30],
         labels = [],
         from, to;
 
@@ -278,19 +166,3 @@ legend.onAdd = function (map) {
 };
 
 legend.addTo(map);
-
-
-
-// var years = [
-//     1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972,
-//     1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014
-// ];
- 
-// function filterBy(year) {
-//     var filters = ['==', 'year', year];
-//     map.setFilter('earthquake-circles', filters);
-//     map.setFilter('earthquake-labels', filters);
-    
-//     // Set the label to the year
-//     document.getElementById('year').textContent = years[year];
-// }
