@@ -22,21 +22,15 @@ d3.json(url).then(function(olympicData) {
     var silverDict = {};
     silverDict['x'] = d.year;
     silverDict['y'] = d.silver;
-    silverDict['r'] = d.gdp/4000;
+    silverDict['r'] = d.gdp/3000;
     silvers.push(silverDict); // Append 'silvers' array with each dictionary
 
     // Create a dictionary for each row of bronze medal data
     var bronzeDict = {};
     bronzeDict['x'] = d.year;
     bronzeDict['y'] = d.bronze;
-    bronzeDict['r'] = d.gdp/4000;
+    bronzeDict['r'] = d.gdp/3000;
     bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
-  }
-
-  function goldCountries(golds) {
-    for (var i = 0; i < golds.length; i++) {
-      return golds[i].country
-    }
   }
 
   // Generate chart using Chart.js
@@ -85,12 +79,11 @@ d3.json(url).then(function(olympicData) {
         callbacks: {
           label: function(tooltipItem, data) {
             var label = data.datasets[tooltipItem.datasetIndex].label;
-            return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ', GDP: ' + tooltipItem.r + ')';
+            return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ')';
          }
         }
       }
     }
   });
-    
 
 }); //d3.json end
