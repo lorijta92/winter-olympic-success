@@ -73,16 +73,21 @@
 
         <!-- Header and Intro -->
         <div class="row"><h1>Introduction</h1></div>
-        <div class="row"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-            ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum 
-            dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-            deserunt mollit anim id est laborum.</p></div>
+        <div class="row"><p>This dashboard seeks to answer the question, “What is the relationship between a country’s wealth 
+            and Olympic performance?” To answer this, the team focused on the winter games in order to limit analysis. Future
+            analyses would include the summer games.<br>
+            <br>
+            Below are three interactive charts that look at different aspects to answer that question. The first, is a choropleth 
+            map to show the amount of gold medals won by each country out of the total amount of gold medals won by all nations. 
+            The second, is a bubble chart depicting the relationship between each country’s GDP per capital and the amount of 
+            medals won. Each marker’s color is representative of the medal type won, and its size representative of the country’s 
+            GDP.  The third, is a line chart showing the relationship between population and the amount of medals won. </p>
+        </div>
 
         <!-- Choropleth Map -->
         <div class="row">
             <div class="col-md-12"> 
-                <div id="map" style="width: 100%; height: 400px"></div> <!--CHOROPLETH MAP-->
+                <div id="map" style="width: 100%; height: 500px"></div> <!--CHOROPLETH MAP-->
             </div>
         </div>
         <div class="row">
@@ -109,15 +114,16 @@
         <div class="row"></div>
         <div class="row">
             <div class="col-md-10">
-                <!-- <div id="scatter" style="width: 100%; height: 400px"></div> SCATTER -->
                 <canvas id="bubble" class="chartjs" width="770" height="400" style="display:block; width: 770px; height: 400px"></canvas>
             </div>
             <div class="col-md-2" style="padding: 1rem; background-color: #f7f7f9"> 
                 <div>
-                    <h2>Scatter</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi 
-                    ut aliquip ex ea commodo consequat.</p></div>
+                    <h3>GDP vs. Medals</h3>
+                    <p>See the relationship between GDP per capita and the amount of Olympic medals won for each country at the
+                    winter games from 1960 onward. The size of each marker is representative of each country's GDP that year.</p>
+                    <hr>
+                    <p>Filter by medal type by clicking on the boxes above the chart.</p>
+                </div>
             </div>  
         </div> 
 
@@ -125,9 +131,7 @@
             <div class="col-md-2" style="padding: 2rem; background-color: #f7f7f9">
                 <!-- <h4>Percents</h4> -->
                 <h5> Population vs. Medals</h5>
-                <p>See how relative population size
-                    compares to percent of medals won 
-                    from the 1960 winter games onward.</p>
+                <p>See how relative population size compares to percent of medals won from the 1960 winter games onward.</p>
                 <hr class="my-4">
                 <h5>Country:</h5>
                 <select id="selCountrySet" onchange="optionChanged(this.value)"></select>

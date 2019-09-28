@@ -15,7 +15,7 @@ d3.json(url).then(function(olympicData) {
     var goldDict = {};
     goldDict['x'] = d.year;
     goldDict['y'] = d.gold;
-    goldDict['r'] = d.gdp/4000;
+    goldDict['r'] = d.gdp/3000;
     golds.push(goldDict); // Append 'golds' array with each dictionary
 
     // Create a dictionary for each row of silver medal data
