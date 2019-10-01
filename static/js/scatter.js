@@ -2,6 +2,7 @@ var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
 
+
   // Create empty arrays to store data for each medal type
   var golds = [];
   var silvers = [];
@@ -16,6 +17,7 @@ d3.json(url).then(function(olympicData) {
     goldDict['x'] = d.year;
     goldDict['y'] = d.gold;
     goldDict['r'] = d.gdp/3000;
+    goldDict['country'] = d.country;
     golds.push(goldDict); // Append 'golds' array with each dictionary
 
     // Create a dictionary for each row of silver medal data
@@ -23,6 +25,7 @@ d3.json(url).then(function(olympicData) {
     silverDict['x'] = d.year;
     silverDict['y'] = d.silver;
     silverDict['r'] = d.gdp/3000;
+    silverDict['country'] = d.country;
     silvers.push(silverDict); // Append 'silvers' array with each dictionary
 
     // Create a dictionary for each row of bronze medal data
@@ -30,6 +33,7 @@ d3.json(url).then(function(olympicData) {
     bronzeDict['x'] = d.year;
     bronzeDict['y'] = d.bronze;
     bronzeDict['r'] = d.gdp/3000;
+    bronzeDict['country'] = d.country;
     bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
   }
 
@@ -37,7 +41,7 @@ d3.json(url).then(function(olympicData) {
   new Chart(document.getElementById("bubble"), {
     type: 'bubble',
     data: {
-      labels: ["Gold", "Silver", "Bronze"],
+      labels: ["MEDALS"],
       datasets: [
         {
           label: "Gold",
@@ -79,7 +83,17 @@ d3.json(url).then(function(olympicData) {
         callbacks: {
           label: function(tooltipItem, data) {
             var label = data.datasets[tooltipItem.datasetIndex].label;
+            var labelData = data.datasets[tooltipItem.datasetIndex].data;
+
+            for (var i = 0; i < labelData.length; i++) {
+              var countryLabel = labelData[i].country;
+              var gdpRadius = labelData[i].r * 3000;
+            }
+            console.log(countryLabel);
+            console.log(gdpRadius);
+
             return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ')';
+            
          }
         }
       }
