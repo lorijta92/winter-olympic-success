@@ -60,53 +60,42 @@
 
     
 <div class="wrapper">
-    <div class="hero heroLanding text-center">
-        <h1 style="color: white";>WINTER OLYMPICS</h1>
+    <div class="hero heroMethod text-center">
+        <h1 style="color: white";>METHOD</h1>
     </div>
     
     <div class="container">
 
-        <!-- Header and Intro -->
-        <div class="row"><h1>Introduction</h1></div>
-        <div class="row"><p>This dashboard seeks to answer the question, “What is the relationship between a country’s wealth 
-            and Olympic performance?” To answer this, the team focused on the winter games in order to limit analysis. Future
-            analyses would include the summer games.<br>
-            <br>
-            Below are three interactive charts that look at different aspects to answer that question. The first, is a choropleth 
-            map to show the amount of gold medals won by each country out of the total amount of gold medals won by all nations. 
-            The second, is a bubble chart depicting the relationship between each country’s GDP per capital and the amount of 
-            medals won. Each marker’s color is representative of the medal type won, and its size representative of the country’s 
-            GDP.  The third, is a line chart showing the relationship between population and the amount of medals won. </p>
+        <!-- Goal & Data -->
+        <div class="row"><h1>GOAL</h1></div>
+        <div class="row">
+            <p>The goal of project.</p>
+        </div>
+
+        <div class="row"><h1>DATA</h1></div>
+        <div class="row">
+            <p>Past project.</p>
         </div>
 
         <!-- Choropleth Map -->
         <div class="row">
-            <div class="col-md-12"> 
-                <div id="map" style="width: 100%; height: 500px"></div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-12">
                 <div>
-                    <h2>Percentage of Gold Medals Won</h2>
+                    <h1>ANALYSIS</h1>
+                    <hr>
+                    <h4>Percentage of Gold Medals Won</h4>
                     <p>Hover over each country on the choropleth map to see the percentage of gold medals won by each each 
                     country relative to the total amount of gold medals available per year of the Winter Olympic Games.
                     </p></div>
             </div>
         </div> 
-    </div> <!-- Container End -->
-</div> <!-- Wrapper End -->
+        <div class="row">
+            <div class="col-md-12"> 
+                <div id="map" style="width: 100%; height: 500px"></div>
+            </div>
+        </div>
 
-
-<div class="wrapper">
-        <div class="row"><img class="cover" src="../static/assets/stadium_cr.jpg" width="100%" height="400px"></div>
-</div> <!-- Wrapper End -->
-
-
-<div class="wrapper" style="margin-top: 0.5em;">
-    <div class="container">
         <!-- Scatter & Line Plots -->
-        <div class="row"></div>
         <div class="row">
             <div class="col-md-10">
                 <canvas id="bubble" class="chartjs" width="770" height="400" style="display:block; width: 770px; height: 400px"></canvas>

@@ -58,6 +58,14 @@ def home():
 
     return render_template("index.html")
 
+@app.route('/contributors')
+def contributors():
+    return render_template("contributors.html")
+
+@app.route('/method')
+def method():
+    return render_template("method.html")
+
 # Route to get data for choropleth map
 @app.route("/gdp_medals")
 def gdp_medals():
