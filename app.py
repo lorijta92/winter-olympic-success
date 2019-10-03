@@ -1,6 +1,4 @@
-#################################################
 # Dependencies
-#################################################
 import os
 import csv
 
@@ -20,10 +18,8 @@ import sqlite3
 # Create an instance of Flask
 app = Flask(__name__)
 
-#################################################
-# Database Setup
-#################################################
 
+# DATABASE SETUP
 # Configure our Flask instance to sqllite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Resources/gdp_olympic.sqlite'
 
@@ -36,18 +32,8 @@ Base = automap_base()
 # Reflect the tables
 Base.prepare(db.engine, reflect=True)
 
-# Save references to each table
-# Winter = Base.classes.winter
-# Summer = Base.classes.summer
-# Athlete = Base.classes.athlete
-# Regions = Base.classes.regions
-# WDI = Base.classes.wdi
-# Soccer = Base.classes.soccer
 
-#################################################
-# Route Setup
-#################################################
-
+# ROUTE SETUP
 # Route to render index.html template
 @app.route("/")
 def home():
@@ -58,15 +44,17 @@ def home():
 
     return render_template("index.html")
 
+# Route to view contributors to project
 @app.route('/contributors')
 def contributors():
     return render_template("contributors.html")
 
+# Route to view method of project
 @app.route('/method')
 def method():
     return render_template("method.html")
 
-# Route to get data for choropleth map
+# Route to get data for choropleth map and scatter plot
 @app.route("/gdp_medals")
 def gdp_medals():
     
@@ -153,8 +141,6 @@ def line_graph():
         
     return jsonify(data)
 
-#################################################
 # End Flask
-#################################################
 if __name__ == "__main__":
     app.run(debug=False)
