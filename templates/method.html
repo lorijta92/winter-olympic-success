@@ -50,9 +50,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/contributors">Contributors</a>
                     </li>
-          
                     <li class="nav-item">
                         <a class="nav-link" href="/method">Method</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/lorijta92/gdp-and-olympic-success">GitHub</a>
                     </li>
                 </ul>
             </div>
@@ -67,53 +69,62 @@
     <div class="container">
 
         <!-- Goal & Data -->
-        <div class="row"><h1>GOAL</h1></div>
+        <div class="row"><h2>GOAL</h2></div>
         <div class="row">
-            <p>The goal of project.</p>
+            <p style="font-size: 16px">Identify and visualize trends related to a country’s performance in the Winter Olympic games on an 
+            interactive dashboard.</p>
         </div>
 
-        <div class="row"><h1>DATA</h1></div>
+        <div class="row"><h2>GATHERING DATA</h2></div>
         <div class="row">
-            <p>Past project.</p>
+            <p style="font-size: 16px">This project was built as an extension of another project, which you can view 
+            <a href="https://github.com/dpkeyes/Olympics-Soccer-Country-Analysis-ETLProject" target="_blank">here</a>. 
+            The original data was downloaded as csv files from Kaggle and the World Bank, before being cleaned using 
+            Python and relevant libraries such as Pandas, and pushed to a Postgres database using SQLAlchemy.<br>
+            <br>
+            The newly cleaned csv files were then taken and converted into a SQLite database for this project. SQLite was used 
+            for a more efficient connection, rather than connecting directly to the Postgres database and remapping the tables. 
+            After connecting to the database with SQLAlchemy, further cleaning was done using Python inside Jupyter Notebook to 
+            format the data to the structure necessary for this analysis before returning the data as a JSON.</p>
         </div>
 
         <!-- Choropleth Map -->
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <h1>ANALYSIS</h1>
-                    <hr>
-                    <h4>Percentage of Gold Medals Won</h4>
-                    <p>Hover over each country on the choropleth map to see the percentage of gold medals won by each each 
-                    country relative to the total amount of gold medals available per year of the Winter Olympic Games.
+                    <h2>ANALYSIS & DISCUSSION</h2>
+                    <br>
+                    <h5>Percentage of Gold Medals Won</h5>
+                    <p style="font-size: 16px">Hover over each country on the choropleth map to see the percentage of gold medals 
+                    won by each each country relative to the total amount of gold medals available per year of the Winter Olympic Games.
                     </p></div>
             </div>
         </div> 
         <div class="row">
             <div class="col-md-12"> 
-                <div id="map" style="width: 100%; height: 500px"></div>
+                <div id="map" style="width: 100%; height: 400px"></div>
             </div>
         </div>
 
         <!-- Scatter & Line Plots -->
         <div class="row">
-            <div class="col-md-10">
-                <canvas id="bubble" class="chartjs" width="770" height="400" style="display:block; width: 770px; height: 400px"></canvas>
+            <div class="col-md-12">
+                <h5>GDP VS. MEDALS</h5>
             </div>
-            <div class="col-md-2" style="padding: 1rem; background-color: #f7f7f9"> 
-                <div>
-                    <h3>GDP vs. Medals</h3>
-                    <p>See the relationship between GDP per capita and the amount of Olympic medals won for each country at the
-                    winter games from 1960 onward. The size of each marker is representative of each country's GDP that year.</p>
-                    <hr>
-                    <p>Filter by medal type by clicking on the boxes above the chart.</p>
-                </div>
-            </div>  
+        </div> 
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="bubble" class="chartjs" width="670" height="300" style="display:block; width: 770px; height: 400px"></canvas>
+            </div>
         </div> 
 
         <div class="row">
+            <div class="col-md-12">
+                <h5>PERCENTAGE OF POPULATION VS. PERCENTAGE OF MEDALS</h5>
+            </div>
+        </div> 
+        <div class="row">
             <div class="col-md-2" style="padding: 2rem; background-color: #f7f7f9">
-                <h5> Population vs. Medals</h5>
                 <p>See how relative population size compares to percent of medals won from the 1960 winter games onward.</p>
                 <hr class="my-4">
                 <h5>Country:</h5>
