@@ -41,14 +41,14 @@ function lineGraph(country) {
         
         // Define trace for the population line graph with AUT as the placeholder
         var pop_trace = {
-        x: xyData(countryCode=country, dictionary=response, yDataType='population')[0],
-        y: xyData(countryCode=country, dictionary=response, yDataType='population')[1],
-        mode: 'line',
-        name: 'Population',
-        line: {
-            color: '#237BB8',
-            width: 2
-        }
+            x: xyData(countryCode=country, dictionary=response, yDataType='population')[0],
+            y: xyData(countryCode=country, dictionary=response, yDataType='population')[1],
+            mode: 'line',
+            name: 'Population',
+            line: {
+                color: '#237BB8',
+                width: 2
+            }
         };
         
         // Define trace for the olympic medals line graph
