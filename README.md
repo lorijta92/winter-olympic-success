@@ -12,6 +12,7 @@ The newly cleaned csv files were then taken and converted into a SQLite database
 
 ### Percentage of Gold Medals Won
 ![choropleth](https://github.com/lorijta92/gdp-and-olympic-success/blob/master/static/assets/ss-ch.png?raw=true)
+We first wanted a larger overview of general country performance, “Which countries score the most gold medals?” To visualize this, a choropleth map was made using `Leaflet.js` and `geoJSON` to represent the percentage of gold medals won by each country out of all available gold medals each year. We focused on gold medals for this map because we thought it was most representative of Olympic success. We found that successful countries tend to be those with colder climates (such as Russia or Norway), suggesting that monetary wealth is not the only indicator of success. Future analysis would look into climate as well as elevation and compare performance each year of the games to the location of the games. Do games held at higher elevation have an effect on a country’s performance? 
 
 #### GDP vs. Medals
 ![scatter](https://github.com/lorijta92/gdp-and-olympic-success/blob/master/static/assets/ss-sc.png?raw=true)
