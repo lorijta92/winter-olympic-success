@@ -4,7 +4,7 @@
 Identify and visualize trends related to a country’s performance in the Winter Olympic games on an interactive dashboard ([view here](https://gdp-olympic-medals.herokuapp.com/)).
 
 ## Gathering data
-This project was built as an extension of another project, which you can view here. The original data was downloaded as csv files from Kaggle and the World Bank, before being cleaned using Python and relevant libraries such as Pandas, and pushed to a Postgres database using SQLAlchemy.
+This project was built as an extension of another project (focused on the Extract-Transform-Load process), which you can view [here](https://github.com/lorijta92/wdi-sports-etl). The original data was downloaded as csv files from Kaggle and the World Bank, before being cleaned using Python and relevant libraries such as Pandas, and pushed to a Postgres database using SQLAlchemy.
 
 The newly cleaned csv files were then taken and converted into a SQLite database for this project. SQLite was used for a more efficient connection, rather than connecting directly to the Postgres database and remapping the tables. After connecting to the database with SQLAlchemy, further cleaning was done using Python inside Jupyter Notebook to format the data to the structure necessary for this analysis before returning the data as a JSON. 
 
