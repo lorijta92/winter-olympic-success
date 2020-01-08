@@ -4,17 +4,17 @@
 var width = parseInt(d3.select("#scatter").style("width"));
 
 // Designate the height of the graph
-var height = width - width/2;
+var height = width/2;
 
 // Margin spacing for graph
-var margin = 20;
+var margin = 30;
 
 // space for placing words
 var labelArea = 110;
 
 // padding for the text at the bottom and left axes
-var tPadBot = 40;
-var tPadLeft = 40;
+var tPadBot = 10;
+var tPadLeft = 10;
 
 // Create the actual canvas for the graph
 var svg = d3
@@ -40,7 +40,7 @@ function xTextRefresh() {
     "translate(" +
       ((width - labelArea) / 2 + labelArea) +
       ", " +
-      (height - margin - tPadBot) +
+      (height - tPadBot) +
       ")"
   );
 }
@@ -52,7 +52,7 @@ xTextRefresh();
 xText
   .append("text")
   .attr("x", 30)
-  .attr("y", -25)
+  .attr("y", -15)
   .attr("class", "titleText")
   .text("Year");
 
@@ -112,8 +112,8 @@ xText
 
 
 // Variables for a responsive y-axis label
-var leftTextX = margin + tPadLeft;
-var leftTextY = (height + labelArea) / 2 - labelArea;
+var leftTextX = -25;
+var leftTextY = (height + labelArea) / 2 - (labelArea / 1.5);
 
 // Create group element to contain y-axis labels
 svg.append("g").attr("class", "yText");
@@ -132,7 +132,7 @@ yTextRefresh();
 // Append y-label text
 yText
   .append("text")
-  .attr("y", 26)
+  .attr("y", 50)
   .attr("class", "titleText")
   .text("Count of Medals");
 
@@ -178,6 +178,7 @@ d3.json(url).then(function(olympicData) {
     bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
   }
 
+
   // Find all unique values for chart axes
   // Empty arrays to store all values 
   var allYears = [];
@@ -196,29 +197,51 @@ d3.json(url).then(function(olympicData) {
     return array.filter((item, i, arr) => arr.indexOf(item) === i);
   }
 
-  // Create arrays containing unique values only
+  // Use function to create arrays containing unique values only
   var uniqueYears = uniqueValues(allYears);
   var uniqueGolds = uniqueValues(allGolds);
   var uniqueSilvers = uniqueValues(allSilvers);
   var uniqueBronzes = uniqueValues(allBronzes);
 
-  console.log(d3.min(uniqueGolds));
-  console.log(d3.max(uniqueGolds));
+  // Convert uniqueYears array to appropriate data type
+  var parseTime = d3.timeParse();
+  uniqueYears.forEach(year => parseTime(year));
+
+  // Set scales
+  var xScale = d3.scaleTime()
+    .domain([d3.min(uniqueYears), d3.max(uniqueYears)])
+    .range([0, (width - margin - tPadLeft - 50)]);
+
+  var yScale = d3.scaleLinear()
+  .domain([0,d3.max(uniqueGolds)+2])
+  .range([height - height/7, 0]);
+
+  // Create axes
+  var xAxis = d3.axisBottom(xScale);
+  var yAxis = d3.axisLeft(yScale);
+
+  // Bind axes
+  svg
+    .append("g")
+    .call(xAxis)
+    .attr("class", "xAxis")
+    .attr("transform", "translate(60," + (height - 70) + ")");
+  svg
+    .append("g")
+    .call(yAxis)
+    .attr("class", "yAxis")
+    .attr("transform", "translate(60," + (margin - 35) + ")");
 
 }); //d3.json end
+
+
+
+
+
+
 
 
 // VISUALIZE DATA
 // ===================================
 function visualize(theData) {
-
-    var currentY = "gold";
-  
-    var yMin = d3.min(theData.gold);
-    var yMax = d3.max(theData.gold);
-
-    // console.log(theData);
-    // console.log(theData.gold);
-
-
 } //visualize end
