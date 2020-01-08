@@ -135,8 +135,19 @@ opacity: 0;
   cursor: pointer;
 }
 
-.circle {
-  stroke: #b5b5b5;
+.goldCircles {
+  fill: rgba(255,221,50,0.4);
+  stroke: rgba(255,221,50,1);
+}
+
+.silverCircles {
+  fill: rgba(74,74,74,0.4);
+  stroke: rgba(74,74,74,1);
+}
+
+.bronzeCircles {
+  fill: rgba(128,74,0,0.4);
+  stroke: rgba(128,74,0,1);
 }
 
 .tooltip {

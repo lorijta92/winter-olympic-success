@@ -4,7 +4,7 @@
 var width = parseInt(d3.select("#scatter").style("width"));
 
 // Designate the height of the graph
-var height = width/2;
+var height = width * 0.65;
 
 // Margin spacing for graph
 var margin = 30;
@@ -132,7 +132,7 @@ yTextRefresh();
 // Append y-label text
 yText
   .append("text")
-  .attr("y", 50)
+  .attr("y", 35)
   .attr("class", "titleText")
   .text("Count of Medals");
 
@@ -203,18 +203,14 @@ d3.json(url).then(function(olympicData) {
   var uniqueSilvers = uniqueValues(allSilvers);
   var uniqueBronzes = uniqueValues(allBronzes);
 
-  // Convert uniqueYears array to appropriate data type
-  var parseTime = d3.timeParse();
-  uniqueYears.forEach(year => parseTime(year));
-
   // Set scales
-  var xScale = d3.scaleTime()
+  var xScale = d3.scaleLinear()
     .domain([d3.min(uniqueYears), d3.max(uniqueYears)])
     .range([0, (width - margin - tPadLeft - 50)]);
 
   var yScale = d3.scaleLinear()
   .domain([0,d3.max(uniqueGolds)+2])
-  .range([height - height/7, 0]);
+  .range([height - 65, 0]);
 
   // Create axes
   var xAxis = d3.axisBottom(xScale);
@@ -231,6 +227,37 @@ d3.json(url).then(function(olympicData) {
     .call(yAxis)
     .attr("class", "yAxis")
     .attr("transform", "translate(60," + (margin - 35) + ")");
+
+  // Add bronze medal circles
+  svg.selectAll("bronze_circle")
+    .data(bronzes)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xScale(d.x))
+    .attr("cy", d => yScale(d.y))
+    .attr("r", d => d.r)
+    .attr("class", "bronzeCircles");
+  
+  // Add silver medal circles
+  svg.selectAll("silver_circle")
+    .data(silvers)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xScale(d.x))
+    .attr("cy", d => yScale(d.y))
+    .attr("r", d => d.r)
+    .attr("class", "silverCircles");
+
+  // Add gold medal circles
+  svg.selectAll("gold_circle")
+    .data(golds)
+    .enter()
+    .append("circle")
+    .attr("cx", d => xScale(d.x))
+    .attr("cy", d => yScale(d.y))
+    .attr("r", d => d.r)
+    .attr("class", "goldCircles");
+  
 
 }); //d3.json end
 
