@@ -83,16 +83,8 @@ d3.json(url).then(function(olympicData) {
         callbacks: {
           label: function(tooltipItem, data) {
             var label = data.datasets[tooltipItem.datasetIndex].label;
-            var labelData = data.datasets[tooltipItem.datasetIndex].data;
 
-            for (var i = 0; i < labelData.length; i++) {
-              var countryLabel = labelData[i].country;
-              var gdpRadius = labelData[i].r * 3000;
-            }
-            console.log(countryLabel);
-            console.log(gdpRadius);
-
-            return label + ': (Year: ' + tooltipItem.xLabel + ', Medals: ' + tooltipItem.yLabel + ')';
+            return 'Year: ' + tooltipItem.xLabel + ' ' + label + ' Medals: ' + tooltipItem.yLabel;
             
          }
         }
