@@ -141,52 +141,21 @@ yText
 var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
-    visualize(olympicData);
+    for (var i = 0; i < olympicData.length; i++) {
+        var d = olympicData[i];
+        
+    visualize(d)};
 });
 
 function visualize(theData) {
-    // PART 1: Essential Local Variables and Functions
-    // =================================
-    // curX and curY will determine what data gets represented in each axis.
-    // We designate our defaults here, which carry the same names
-    // as the headings in their matching .csv data file.
-    var currentX = "Unknown";
-    var currentY = "Gold";
+
+    var currentY = "gold";
   
-    // We also save empty variables for our the min and max values of x and y.
-    // this will allow us to alter the values in functions and remove repetitious code.
-    var xMin;
-    var xMax;
-    var yMin;
-    var yMax;
+    var yMin = d3.min(theData.gold);
+    var yMax = d3.max(theData.gold);
 
-    // a. change the min and max for x
-  function xMinMax() {
-    // min will grab the smallest datum from the selected column.
-    xMin = d3.min(theData, function(d) {
-      return parseInt(d[currentX]);
-    });
+    console.log(theData);
+    console.log(theData.gold);
 
-    // .max will grab the largest datum from the selected column.
-    xMax = d3.max(theData, function(d) {
-      return parseInt(d[currentX]);
-    });
-  }
-
-  console.log(xMin);
-  console.log(xMax);
-
-  // b. change the min and max for y
-  function yMinMax() {
-    // min will grab the smallest datum from the selected column.
-    yMin = d3.min(theData, function(d) {
-      return parseFloat(d[curY]) * 0.90;
-    });
-
-    // .max will grab the largest datum from the selected column.
-    yMax = d3.max(theData, function(d) {
-      return parseFloat(d[curY]) * 1.10;
-    });
-  }
 
 } //visualize end
