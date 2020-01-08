@@ -13,7 +13,7 @@ var myCustomStyle = {
 };
 
 var json = GEO_JSON
-console.log(json)
+// console.log(json)
 
 // Link to country GeoJSON
 var geoJSONLink = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
@@ -38,7 +38,7 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props) {
-    console.log(`info.update: ${props}`)
+    // console.log(`info.update: ${props}`)
     this._div.innerHTML = '<h5>% Gold Medals Won per Year</h5>' +  (props ?
         '<b>' + props.name + '</b><br />' + 'Share of Gold Medals: ' + props.pct_gold + '%'
         : '<h6>Hover over a country<h6>');
@@ -48,7 +48,7 @@ info.addTo(map);
 
 
 function getColor(d) {
-    console.log(`pct_gold: ${d}`)
+    // console.log(`pct_gold: ${d}`)
     
     if      (d >= 30) {return '#ebc000';}
     else if (d >= 20) {return '#ffd700';}
@@ -106,7 +106,7 @@ function onEachFeature(feature, layer) {
 var geojson
 
 slider = L.control.slider(function(value) {
-    console.log(value);
+    // console.log(value);
 
     if (value >= 1996 & value < 2012) {value = value -2} 
     else if (value >= 2012) {value = 2014}
@@ -125,7 +125,7 @@ slider = L.control.slider(function(value) {
     });
 
     geojson.addTo(map)
-    console.log(geojson)
+    // console.log(geojson)
 
 }, {
     min: 1924,
@@ -140,8 +140,8 @@ slider = L.control.slider(function(value) {
     increment: true
 }).addTo(map);
 
-console.log(slider.options.value);
-console.log(map);
+// console.log(slider.options.value);
+// console.log(map);
 
 var legend = L.control({position: 'bottomleft'});
 

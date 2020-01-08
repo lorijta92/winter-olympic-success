@@ -37,7 +37,7 @@ function lineGraph(country) {
     d3.json("/line_graph").then( function(response) {
 
         // Log the response to confirm it's in the same format I expect it to be in
-        console.log(response);
+        // console.log(response);
         
         // Define trace for the population line graph with AUT as the placeholder
         var pop_trace = {
