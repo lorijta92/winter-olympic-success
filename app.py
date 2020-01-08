@@ -39,8 +39,6 @@ Base.prepare(db.engine, reflect=True)
 def home():
     conn = sqlite3.connect("./Resources/gdp_olympic.sqlite")
     cursor = conn.cursor()
-    # cursor.execute("SELECT year FgitROM winter")
-    # print(cursor.fetchall())
 
     return render_template("index.html")
 
