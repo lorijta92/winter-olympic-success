@@ -1,5 +1,5 @@
 // CHART AREA
-// ==============
+// ===================================
 // Grab the width of the containing box
 var width = parseInt(d3.select("#scatter").style("width"));
 
@@ -26,7 +26,7 @@ var svg = d3
 
 
 // AXIS LABELS
-// ==============
+// ===================================
 // Create group element to contain x-axis labels
 svg.append("g").attr("class", "xText");
 
@@ -44,6 +44,7 @@ function xTextRefresh() {
       ")"
   );
 }
+// Call function
 xTextRefresh();
 
 // Append axis labels as svgs to xText
@@ -125,6 +126,7 @@ function yTextRefresh() {
     "translate(" + leftTextX + ", " + leftTextY + ")rotate(-90)"
   );
 }
+// Call function
 yTextRefresh();
 
 // Append y-label text
@@ -135,18 +137,79 @@ yText
   .text("Count of Medals");
 
 
-// VISUALIZE DATA
-// ==============
-
+// ACCESS DATA
+// ===================================
 var url = "/gdp_medals";
 
 d3.json(url).then(function(olympicData) {
-    for (var i = 0; i < olympicData.length; i++) {
-        var d = olympicData[i];
-        
-    visualize(d)};
-});
 
+
+  // Create empty arrays to store data for each medal type
+  var golds = [];
+  var silvers = [];
+  var bronzes = [];
+
+  // Iterate through data
+  for (var i = 0; i < olympicData.length; i++) {
+    var d = olympicData[i];
+
+    // Create a dictionary for each row of gold medal data
+    var goldDict = {};
+    goldDict['x'] = d.year;
+    goldDict['y'] = d.gold;
+    goldDict['r'] = d.gdp/3000;
+    goldDict['country'] = d.country;
+    golds.push(goldDict); // Append 'golds' array with each dictionary
+
+    // Create a dictionary for each row of silver medal data
+    var silverDict = {};
+    silverDict['x'] = d.year;
+    silverDict['y'] = d.silver;
+    silverDict['r'] = d.gdp/3000;
+    silverDict['country'] = d.country;
+    silvers.push(silverDict); // Append 'silvers' array with each dictionary
+
+    // Create a dictionary for each row of bronze medal data
+    var bronzeDict = {};
+    bronzeDict['x'] = d.year;
+    bronzeDict['y'] = d.bronze;
+    bronzeDict['r'] = d.gdp/3000;
+    bronzeDict['country'] = d.country;
+    bronzes.push(bronzeDict); // Append 'bronzes' array with each dictionary
+  }
+
+  // Find all unique values for chart axes
+  // Empty arrays to store all values 
+  var allYears = [];
+  var allGolds = [];
+  var allSilvers = [];
+  var allBronzes = [];
+
+  // Append arrays with respective values
+  golds.forEach(d => allYears.push(d.x));
+  golds.forEach(d => allGolds.push(d.y));
+  silvers.forEach(d => allSilvers.push(d.y));
+  bronzes.forEach(d => allBronzes.push(d.y));
+
+  // Function to filter arrays for unique values only
+  function uniqueValues(array) {
+    return array.filter((item, i, arr) => arr.indexOf(item) === i);
+  }
+
+  // Create arrays containing unique values only
+  var uniqueYears = uniqueValues(allYears);
+  var uniqueGolds = uniqueValues(allGolds);
+  var uniqueSilvers = uniqueValues(allSilvers);
+  var uniqueBronzes = uniqueValues(allBronzes);
+
+  console.log(d3.min(uniqueGolds));
+  console.log(d3.max(uniqueGolds));
+
+}); //d3.json end
+
+
+// VISUALIZE DATA
+// ===================================
 function visualize(theData) {
 
     var currentY = "gold";
@@ -154,8 +217,8 @@ function visualize(theData) {
     var yMin = d3.min(theData.gold);
     var yMax = d3.max(theData.gold);
 
-    console.log(theData);
-    console.log(theData.gold);
+    // console.log(theData);
+    // console.log(theData.gold);
 
 
 } //visualize end
