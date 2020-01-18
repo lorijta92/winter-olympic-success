@@ -4,7 +4,7 @@
 var width = parseInt(d3.select("#scatter").style("width"));
 
 // Designate the height of the graph
-var height = width * 0.65;
+var height = width * 0.5;
 
 // Margin spacing for graph
 var margin = 30;
@@ -183,14 +183,14 @@ d3.json(url).then(function(olympicData) {
   // Empty arrays to store all values 
   var allYears = [];
   var allGolds = [];
-  var allSilvers = [];
-  var allBronzes = [];
+  // var allSilvers = [];
+  // var allBronzes = [];
 
   // Append arrays with respective values
   golds.forEach(d => allYears.push(d.x));
   golds.forEach(d => allGolds.push(d.y));
-  silvers.forEach(d => allSilvers.push(d.y));
-  bronzes.forEach(d => allBronzes.push(d.y));
+  // silvers.forEach(d => allSilvers.push(d.y));
+  // bronzes.forEach(d => allBronzes.push(d.y));
 
   // Function to filter arrays for unique values only
   function uniqueValues(array) {
@@ -200,8 +200,8 @@ d3.json(url).then(function(olympicData) {
   // Use function to create arrays containing unique values only
   var uniqueYears = uniqueValues(allYears);
   var uniqueGolds = uniqueValues(allGolds);
-  var uniqueSilvers = uniqueValues(allSilvers);
-  var uniqueBronzes = uniqueValues(allBronzes);
+  // var uniqueSilvers = uniqueValues(allSilvers);
+  // var uniqueBronzes = uniqueValues(allBronzes);
 
   // Set scales
   var xScale = d3.scaleLinear()
